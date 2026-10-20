@@ -32,17 +32,18 @@
 
 <header class="nav" id="nav">
   <div class="bar">
-    <a href="#home" class="brand" data-bind="brand">SUMAN<b>.dev</b></a>
-    <nav class="nav-links" id="navlinks">
+    <a href="#home" class="brand glass">
+      <span class="brand-dot"></span><span data-bind="brand">SUMAN<b>.dev</b></span>
+    </a>
+    <nav class="nav-links glass" id="navlinks">
       <a href="#home">Home</a>
       <a href="#about">About</a>
       <a href="#skills">Skills</a>
       <a href="#projects">Projects</a>
-      <a href="#github">GitHub</a>
       <a href="#contact">Contact</a>
     </nav>
-    <div style="display:flex;gap:12px;align-items:center">
-      <span class="status-pill"><span class="dot"></span><span data-bind="statusShort">Available</span></span>
+    <div class="nav-right">
+      <span class="status-pill glass"><span class="dot"></span><span data-bind="statusShort">Available</span></span>
       <span class="kbd" id="cmdBtn" title="Command palette (Ctrl+K)">⌘K</span>
       <button class="menu-btn" id="menuBtn">MENU</button>
     </div>
@@ -149,34 +150,43 @@
   </div>
 </section>
 
-<!-- GITHUB REPOSITORIES -->
-<section class="blk" id="github">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <div><div class="sec-num">05 — Open Source</div><h2>GitHub <span class="hl">Repositories</span></h2></div>
-      <div class="r">Fetched from the<br>GitHub REST API</div>
-    </div>
-    <div class="repo-status" id="repoStatus"></div>
-    <div class="repo-grid" id="repoList"></div>
-    <a class="btn ghost mag reveal" href="https://github.com/suman876-ops" target="_blank" rel="noopener noreferrer" style="margin-top:34px">View full profile on GitHub →</a>
-  </div>
-</section>
-
 <!-- CONTACT -->
 <section class="blk contact" id="contact">
   <div class="wrap">
     <div class="sec-head reveal">
-      <div><div class="sec-num">06 — Communication Link</div><h2>Establish <span class="hl">Uplink</span></h2></div>
+      <div><div class="sec-num">05 — Communication Link</div><h2>Establish <span class="hl">Uplink</span></h2></div>
       <div class="r">Available For Freelance<br>Ready for new projects</div>
     </div>
     <div class="contact-grid">
       <div class="reveal">
         <h3 class="big">Let's build<br>something <span class="grad">great.</span></h3>
         <p class="sub">Have a project, a role, or just want to say hi? My inbox is always open.</p>
-        <div class="info-row"><small>Direct Channel</small><span><a data-bind="email" data-href="mailto" href="#">email</a></span><span class="copy" id="copyEmail">CLICK TO COPY</span></div>
-        <div class="info-row"><small>Base Operations</small><span data-bind="locationShort">Jhargram, West Bengal</span></div>
-        <div class="info-row"><small>Timezone</small><span data-bind="locationUtc">UTC+05:30 IST</span></div>
-        <div class="socials" style="margin-top:22px" id="socials"></div>
+
+        <div class="ccards">
+          <div class="ccard glass wide">
+            <span class="cico">✉</span>
+            <span class="cbody"><small>Email</small><b><a data-bind="email" data-href="mailto" href="#">email</a></b></span>
+            <button class="ccopy" id="copyEmail" type="button" aria-label="Copy email address">Copy</button>
+          </div>
+          <div class="ccard glass">
+            <span class="cico">◉</span>
+            <span class="cbody"><small>Location</small><b data-bind="locationShort">Jhargram, West Bengal</b></span>
+          </div>
+          <div class="ccard glass">
+            <span class="cico">◔</span>
+            <span class="cbody"><small>Timezone</small><b data-bind="locationUtc">UTC+05:30 IST</b></span>
+          </div>
+          <div class="ccard glass">
+            <span class="cico">⚡</span>
+            <span class="cbody"><small>Response time</small><b data-bind="latency">24–48 Hours</b></span>
+          </div>
+          <div class="ccard glass">
+            <span class="cico">✦</span>
+            <span class="cbody"><small>Status</small><b data-bind="status">AVAILABLE FOR FREELANCE</b></span>
+          </div>
+        </div>
+
+        <div class="socials" id="socials"></div>
       </div>
       <form class="form reveal" id="contactForm">
         <div class="f"><label>01. Identity — Name</label><input name="name" placeholder="Your name" required></div>
@@ -196,7 +206,7 @@
       <div class="meta" style="text-align:left;margin-top:8px">Designed &amp; Deployed by <span data-bind="name">Suman Mahata</span></div>
       <div class="accent-dots" id="accentDots" style="margin-top:16px"></div>
     </div>
-    <div class="meta">© <span id="yr2">2026</span> Edition • V3.1.0<br>HTML / CSS / JS / Three.js</div>
+    <div class="meta">© <span id="yr2">2026</span> Edition • V3.2.0<br>HTML / CSS / JS / Three.js</div>
   </div>
 </footer>
 

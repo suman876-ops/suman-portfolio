@@ -204,53 +204,12 @@ export const DATA = {
     }
   ],
 
-  /* ---------------------------------------------------------------------
-   * Snapshot of the public GitHub repositories for @suman876-ops.
-   * The live site re-fetches this from the GitHub REST API at runtime and
-   * only falls back to this snapshot if the API is unavailable or rate
-   * limited. Fetched 2026-10-20.
-   * -------------------------------------------------------------------*/
-  repoFallback: [
-    {
-      name: "suman-portfolio",
-      description: "Personal portfolio of Suman Mahata — Full Stack Developer. A dark, space-themed site built with HTML, CSS, JavaScript and Three.js.",
-      html_url: "https://github.com/suman876-ops/suman-portfolio",
-      language: "JavaScript", stars: 0, forks: 0,
-      updated_at: "2026-10-20", homepage: "https://suman876-ops.github.io/suman-portfolio/"
-    },
-    {
-      name: "lakshmi-puja",
-      description: "A single-file, cinematic devotional website for Lakshmi Puja — Assamese, with interactive 3D graphics, a generative Web Audio music engine, and a rendered short film. Everything embedded in one HTML file.",
-      html_url: "https://github.com/suman876-ops/lakshmi-puja",
-      language: "HTML", stars: 0, forks: 0,
-      updated_at: "2026-10-19", homepage: ""
-    },
-    {
-      name: "secureshare-site",
-      description: "SecureShare Website — private file and text sharing with OTP verification and auto-expiring links.",
-      html_url: "https://github.com/suman876-ops/secureshare-site",
-      language: "HTML", stars: 0, forks: 0,
-      updated_at: "2026-10-14", homepage: "https://secureshare-site-alpha.vercel.app"
-    },
-    {
-      name: "MoSPI",
-      description: "No description provided.",
-      html_url: "https://github.com/suman876-ops/MoSPI",
-      language: "", stars: 0, forks: 0, updated_at: "2026-09-10", homepage: ""
-    },
-    {
-      name: "suman876-ops",
-      description: "GitHub profile repository.",
-      html_url: "https://github.com/suman876-ops/suman876-ops",
-      language: "", stars: 0, forks: 0, updated_at: "2026-09-10", homepage: ""
-    }
-  ]
 };
 
 /* Accent colour themes — each one drives both the CSS variables and the 3D scene. */
 export const THEMES = {
-  cyan:    { cyan: "#3ee6ff", mag: "#a974ff", pink: "#ff4d9d", lime: "#8affc1", hex: 0x3ee6ff, hex2: 0xa974ff },
-  violet:  { cyan: "#b98bff", mag: "#7c5cff", pink: "#ff6bd6", lime: "#9dffd0", hex: 0xb98bff, hex2: 0x7c5cff },
-  emerald: { cyan: "#4dffb8", mag: "#39d0ff", pink: "#a6ff5c", lime: "#c8ffe0", hex: 0x4dffb8, hex2: 0x39d0ff },
-  amber:   { cyan: "#ffc24d", mag: "#ff7a59", pink: "#ff4d6d", lime: "#ffe6a6", hex: 0xffc24d, hex2: 0xff7a59 }
+  cyan:    { cyan: "#3fe0ff", mag: "#9d7bff", pink: "#ff5c9e", lime: "#7dffc0", hex: 0x3fe0ff, hex2: 0x9d7bff },
+  violet:  { cyan: "#b18cff", mag: "#7c5cff", pink: "#ff6bd6", lime: "#a6ffd4", hex: 0xb18cff, hex2: 0x7c5cff },
+  emerald: { cyan: "#46f2b4", mag: "#38d0ff", pink: "#9bff62", lime: "#c8ffe0", hex: 0x46f2b4, hex2: 0x38d0ff },
+  amber:   { cyan: "#ffc24d", mag: "#ff8a5c", pink: "#ff4d6d", lime: "#ffe6a6", hex: 0xffc24d, hex2: 0xff8a5c }
 };

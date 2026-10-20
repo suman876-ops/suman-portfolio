@@ -184,75 +184,6 @@ function renderProjects() {
 }
 
 /* ============================================================================
- * GITHUB REPOSITORY DISCOVERY
- * Fetches the real public repos from the GitHub REST API at runtime, and
- * falls back to the saved snapshot if the API is unavailable or rate limited.
- * ==========================================================================*/
-
-function repoCard(r) {
-  const meta = [];
-  if (r.language) meta.push(`<span class="rlang">${esc(r.language)}</span>`);
-  meta.push(`<span>★ ${r.stars}</span>`);
-  meta.push(`<span>⑂ ${r.forks}</span>`);
-  if (r.updated_at) meta.push(`<span>updated ${esc(String(r.updated_at).slice(0, 10))}</span>`);
-
-  const links = [
-    `<a class="pact src" href="${esc(r.html_url)}" target="_blank" rel="noopener noreferrer">Repository ↗</a>`
-  ];
-  if (r.homepage) {
-    links.push(`<a class="pact live" href="${esc(r.homepage)}" target="_blank" rel="noopener noreferrer">Live ↗</a>`);
-  }
-  return `
-    <article class="repo reveal">
-      <h3>${esc(r.name)}</h3>
-      <p>${esc(r.description || "No description provided.")}</p>
-      <div class="rmeta">${meta.join("")}</div>
-      <div class="proj-actions">${links.join("")}</div>
-    </article>`;
-}
-
-async function loadRepos() {
-  const host = $("#repoList");
-  host.innerHTML = `<div class="repo-note">Fetching repositories from GitHub…</div>`;
-  let repos = null, live = false;
-
-  try {
-    const res = await fetch(
-      `https://api.github.com/users/${encodeURIComponent(DATA.githubUser)}/repos?per_page=100&sort=updated`,
-      { headers: { Accept: "application/vnd.github+json" } }
-    );
-    if (res.ok) {
-      const json = await res.json();
-      if (Array.isArray(json)) {
-        repos = json.map((r) => ({
-          name: r.name,
-          description: r.description,
-          html_url: r.html_url,
-          language: r.language,
-          stars: r.stargazers_count,
-          forks: r.forks_count,
-          updated_at: r.updated_at,
-          homepage: r.homepage
-        }));
-        live = true;
-      }
-    }
-  } catch (err) {
-    /* network blocked / offline — fall through to the snapshot */
-  }
-
-  if (!repos) repos = DATA.repoFallback;
-
-  $("#repoStatus").innerHTML = live
-    ? `<span class="ok">●</span> Live from the GitHub API — ${repos.length} public repositories`
-    : `<span class="warn">●</span> GitHub API unavailable right now — showing a saved snapshot from 20 Oct 2026`;
-  host.innerHTML = repos.length
-    ? repos.map(repoCard).join("")
-    : `<div class="repo-note">No public repositories found.</div>`;
-  observeReveals();
-}
-
-/* ============================================================================
  * MODAL
  * ==========================================================================*/
 const modal = $("#modal");
@@ -402,8 +333,8 @@ $$(".nav-links a").forEach((a) => a.addEventListener("click", () => $("#navlinks
 const cp = $("#copyEmail");
 cp.addEventListener("click", () => {
   if (navigator.clipboard) navigator.clipboard.writeText(DATA.email);
-  cp.textContent = "COPIED ✓";
-  setTimeout(() => { cp.textContent = "CLICK TO COPY"; }, 1400);
+  cp.textContent = "Copied ✓";
+  setTimeout(() => { cp.textContent = "Copy"; }, 1400);
 });
 
 /* ---------- contact form ---------- */
@@ -422,7 +353,6 @@ const COMMANDS = [
   { t: "Go to About", s: "section", k: "about" },
   { t: "Go to Skills", s: "section", k: "skills" },
   { t: "Go to Projects", s: "section", k: "projects" },
-  { t: "Go to GitHub Repositories", s: "section", k: "github" },
   { t: "Go to Contact", s: "section", k: "contact" },
   { t: "Copy email address", s: "action", k: "copy" },
   { t: "Cycle accent theme", s: "action", k: "theme" },
@@ -496,7 +426,7 @@ document.addEventListener("click", (e) => { if (e.target.closest("[data-cmdclose
     d.style.transform = `translate(${dx}px,${dy}px)`;
     requestAnimationFrame(loop);
   })();
-  const hot = "a,button,.proj,.repo,.chip,input,textarea,select,[data-tilt]";
+  const hot = "a,button,.proj,.ccard,.chip,input,textarea,select,[data-tilt]";
   document.addEventListener("mouseover", (e) => { if (e.target.closest(hot)) document.body.classList.add("cur-hover"); });
   document.addEventListener("mouseout", (e) => { if (e.target.closest(hot)) document.body.classList.remove("cur-hover"); });
   document.addEventListener("mouseleave", () => document.body.classList.add("cur-hide"));
@@ -535,7 +465,6 @@ $("#yr2").textContent = new Date().getFullYear();
 renderBindings();
 buildFilters();
 renderProjects();
-loadRepos();
 type();
 onScroll();
 

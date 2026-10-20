@@ -26,6 +26,7 @@ The site itself is a static front end, but the repository deliberately spreads a
 
 - **3D background** with Three.js — a drifting starfield, a wireframe planet with orbiting rings, floating geometry and glow sprites, with mouse and scroll parallax.
 - **Modern UI** — animated preloader, custom cursor, scroll-progress bar, 3D tilt cards, magnetic buttons, animated counters, a marquee strip and a project detail modal.
+- **Glass-pill navigation** with a frosted brand pill and an active-section highlight.
 - **Command palette** — press `Ctrl`/`Cmd` + `K` to navigate, copy the email or cycle themes.
 - **Four accent themes** — Cyan/Violet, Violet/Pink, Emerald/Sky, Amber/Coral (the dots in the footer).
 - **Graceful fallback** — if Three.js can't load, the page drops back to a 2D canvas starfield.
@@ -40,13 +41,20 @@ All eight projects appear in the Projects section, and every card carries three 
 
 Cards can be searched by name and filtered by category, status and technology.
 
-## GitHub repository feed
+## Design
 
-The **GitHub Repositories** section calls the GitHub REST API at runtime
-(`api.github.com/users/suman876-ops/repos`) and renders the real response — name,
-description, primary language, stars, forks and last-updated date. If the API is
-unavailable or rate-limited it falls back to a snapshot saved in `js/data.js`, and
-the page says which one you are seeing.
+- **Glassmorphism** — the navigation, cards, contact tiles, modal and command
+  palette are frosted panels (`backdrop-filter: blur()` over a translucent
+  gradient), with a soft inner highlight and a deep shadow so they read as
+  glass on the dark background.
+- **Glass-pill navigation** — the brand sits in its own rounded glass pill with a
+  glowing dot, and the links sit in a second pill where the active section is
+  highlighted with an inner pill.
+- **Contact tiles** — email (with a copy button), location, timezone, response
+  time and status are presented as a grid of glass cards with icon badges,
+  followed by the social links as glass pills.
+- **Palette** — a deep navy-black base with cyan, violet and pink accents, four
+  switchable themes, and higher-contrast text.
 
 ## Honesty notes
 
