@@ -426,8 +426,8 @@ footer{border-top:1px solid var(--line);padding:44px 0 40px}
 <section class="blk" id="journey">
   <div class="wrap">
     <div class="sec-head reveal">
-      <div><div class="sec-num">02.2 — The Timeline</div><h2>Journey <span class="hl">&amp; Education</span></h2></div>
-      <div class="r">A non-linear path<br>converging on full-stack craft</div>
+      <div><div class="sec-num">02.2 — Academic Record</div><h2>Education <span class="hl">Timeline</span></h2></div>
+      <div class="r">Academic background<br>&amp; professional training</div>
     </div>
     <div class="tl" id="timeline"></div>
   </div>
@@ -649,10 +649,10 @@ const DEFAULT_DATA = {
     {value:100,suffix:"%",label:"Commitment"}
   ],
   timeline:[
-    {year:"Present",tag:"work",role:"Freelance Full Stack Developer",org:"Self-Employed",desc:"Designing and building web applications end to end — front-end interfaces, APIs and databases — for clients and personal products.",tags:["Web Development","React","Node.js"]},
-    {year:"2024",tag:"internship",role:"Frontend Developer Intern",org:"Tech Company",desc:"Worked on responsive UI components and improved page performance, collaborating with designers and senior engineers.",tags:["JavaScript","CSS","UI/UX"]},
-    {year:"2023",tag:"education",role:"Bachelor's Degree — Computer Science",org:"University",desc:"Studied core computing fundamentals: data structures, algorithms, databases and software engineering.",tags:["DSA","DBMS","Networking"]},
-    {year:"2020",tag:"education",role:"Higher Secondary",org:"School",desc:"Completed 12th grade with a focus on science and mathematics.",tags:["Science","Math","Computer"]}
+    {year:"2026 – Present",tag:"education",role:"BCA — Computer Application",org:"Midnapore City College",desc:"Currently pursuing a Bachelor of Computer Applications, focusing on programming, web development, and software engineering.",tags:["Programming","Web Development","Software Engineering"]},
+    {year:"2026",tag:"education",role:"Higher Secondary",org:"WBCHSE — West Bengal Council of Higher Secondary Education",desc:"Completed Higher Secondary education with Computer Application as a subject.",tags:["Computer Application"]},
+    {year:"2024",tag:"education",role:"Secondary",org:"WBBSE — West Bengal Board of Secondary Education",desc:"Completed secondary education, building a foundation for further academic learning.",tags:["Foundation"]},
+    {year:"2024 – 2025",tag:"certification",role:"Diploma in Office Automation and Publishing (DOAP)",org:"Rajeev Gandhi Computer Saksharta Mission (RGCSM)",desc:"Professional training in office automation and publishing tools. Grade: A+",tags:["Office Automation","Publishing","Grade A+"]}
   ],
   skills:[
     {name:"HTML & CSS",level:95,code:"SYS_UI"},
@@ -683,7 +683,7 @@ const THEMES={
 };
 
 /* ---------- data load ---------- */
-const LS_KEY="suman_portfolio_data_v2";
+const LS_KEY="suman_portfolio_data_v3";
 const LS_PHOTO="suman_portfolio_photo_v1";
 function deepMerge(base,over){
   if(Array.isArray(base)) return Array.isArray(over)?over:base;
