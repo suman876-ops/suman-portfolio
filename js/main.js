@@ -50,7 +50,7 @@ function renderBindings() {
 
   $("#stats").innerHTML = (DATA.stats || []).map((s) => `
     <div class="stat">
-      <div class="v"><span class="cnt" data-to="${esc(s.value)}">0</span>${esc(s.suffix || "")}</div>
+      <div class="v"><span class="cnt" data-to="${esc(s.value)}">${esc(s.value)}</span>${esc(s.suffix || "")}</div>
       <div class="l">${esc(s.label)}</div>
     </div>`).join("");
 
@@ -72,7 +72,7 @@ function renderBindings() {
         <span class="nm"><i>${esc(s.code || "SYS")}</i>${esc(s.name)}</span>
         <span class="pc">${esc(s.level)}%</span>
       </div>
-      <div class="pbar"><span data-lvl="${esc(s.level)}"></span></div>
+      <div class="pbar"><span data-lvl="${esc(s.level)}" style="width:${esc(s.level)}%"></span></div>
     </div>`).join("");
 
   const socials = [["GitHub", DATA.github], ["LinkedIn", DATA.linkedin], ["Twitter", DATA.twitter]]
@@ -90,6 +90,11 @@ function renderBindings() {
   }));
 
   applyTheme(DATA.accent);
+
+  /* these elements were just (re)created above, so (re)wire their behaviour */
+  initBars();
+  initCounters();
+  bindMagnetic();
 }
 
 /* ============================================================================
@@ -250,16 +255,24 @@ function observeReveals() {
 }
 
 function initBars() {
+  // the widths are already rendered, so the bars look right even if the
+  // observer never fires — we only animate when one scrolls into view
+  if (typeof IntersectionObserver !== "function") return;
   const bo = new IntersectionObserver((entries) => entries.forEach((e) => {
-    if (e.isIntersecting) {
-      e.target.style.width = e.target.getAttribute("data-lvl") + "%";
-      bo.unobserve(e.target);
-    }
-  }), { threshold: 0.4 });
-  $$(".pbar span").forEach((el) => { el.style.width = "0"; bo.observe(el); });
+    if (!e.isIntersecting) return;
+    const el = e.target;
+    bo.unobserve(el);
+    const lvl = el.getAttribute("data-lvl");
+    el.style.width = "0";
+    requestAnimationFrame(() => { el.style.width = lvl + "%"; });
+  }), { threshold: 0.35 });
+  $$(".pbar span").forEach((el) => bo.observe(el));
 }
 
 function initCounters() {
+  // the final numbers are already rendered, so they stay correct even if the
+  // observer never fires — we only play the count-up when a stat scrolls in
+  if (typeof IntersectionObserver !== "function") return;
   const co = new IntersectionObserver((entries) => entries.forEach((e) => {
     if (!e.isIntersecting) return;
     const el = e.target;
@@ -270,8 +283,9 @@ function initCounters() {
       const p = clamp((t - t0) / dur, 0, 1);
       el.textContent = Math.round(to * (1 - Math.pow(1 - p, 3)));
       if (p < 1) requestAnimationFrame(step);
+      else el.textContent = to;
     })(t0);
-  }), { threshold: 0.5 });
+  }), { threshold: 0.4 });
   $$(".cnt").forEach((el) => co.observe(el));
 }
 
