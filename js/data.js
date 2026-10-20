@@ -1,6 +1,17 @@
 /* ============================================================================
  * data.js — all site content lives here, as a plain JavaScript object.
  * Change the values below and the whole site updates.
+ *
+ * NOTE ON HONESTY
+ * ---------------
+ * `live` and `github` are only filled in with URLs that were actually
+ * checked. Where a project has no verified live deployment, `live` is an
+ * empty string and the card shows "Live Demo Coming Soon" instead of a link.
+ * Where no public repository is known, `github` is empty and the card shows
+ * "Source Code Not Publicly Available". Nothing here is a guessed URL.
+ *
+ * `techVerified: false` means the stack has not been confirmed against the
+ * real implementation yet — the card labels those chips as unconfirmed.
  * ==========================================================================*/
 
 export const DATA = {
@@ -32,6 +43,7 @@ export const DATA = {
   ],
 
   email: "sumanmahata711@gmail.com",
+  githubUser: "suman876-ops",
   github: "https://github.com/suman876-ops",
   linkedin: "https://www.linkedin.com/in/suman-mahata-067a76327",
   twitter: "https://x.com/m79235_suman",
@@ -90,30 +102,147 @@ export const DATA = {
     { name: "Git & GitHub", level: 85, code: "SYS_DEV" }
   ],
 
+  /* Allowed vocabularies — used to build the filter controls. */
+  categories: [
+    "Web Applications",
+    "Student Productivity",
+    "AI and Machine Learning",
+    "Hackathon Projects",
+    "Personal Projects"
+  ],
+  statuses: ["Completed", "Live", "In Development", "Prototype", "Concept", "Archived"],
+
   projects: [
     {
-      title: "Portfolio Website", category: "Personal / Web", status: "Deployed",
-      desc: "A responsive personal portfolio with an animated dark UI, smooth scroll and a Three.js 3D background.",
-      longDesc: "A fully responsive portfolio featuring a Three.js 3D background, animated reveals, a project detail modal and a command palette. The codebase is split by language — HTML markup, a CSS design system, and ES modules for content, UI logic and the 3D scene — plus Node.js and Python static servers.",
-      tags: ["HTML", "CSS", "JavaScript"], link: "https://github.com/suman876-ops/suman-portfolio"
+      title: "SMX — Personal College OS",
+      category: "Student Productivity",
+      status: "In Development",
+      desc: "A personal student productivity platform with Study Hub, Notes, Assignments, Mock Tests, Skills Tracker, Calendar, Document Management and personal academic tools.",
+      longDesc: "SMX is a personal college operating system: a single workspace for Study Hub, Notes, Assignments, Mock Tests, a Skills Tracker, Calendar, Document Management and other personal academic tools. A live deployment is available and reachable — the build is still in active development.",
+      tech: ["React", "Vite", "Supabase", "TanStack Router"],
+      techVerified: true,
+      live: "https://private-record-hub.lovable.app/app",
+      github: ""
     },
     {
-      title: "E-Commerce Store", category: "Full Stack", status: "Deployed",
-      desc: "Product catalogue, cart and checkout with secure authentication and an admin dashboard for orders.",
-      longDesc: "An end-to-end store with a product catalogue, search and filters, a persistent cart, secure JWT authentication and a checkout flow. Includes an admin dashboard to manage products, stock and orders, plus order confirmation emails.",
-      tags: ["React", "Node.js", "MongoDB"], link: ""
+      title: "Smart Bhumi — Land Management Platform",
+      category: "Hackathon Projects",
+      status: "Prototype",
+      desc: "A land management concept involving land information, GIS mapping, AI/OCR-assisted document processing and land data validation.",
+      longDesc: "Smart Bhumi is a land-records platform built around digitising, validating and verifying land information. It combines land information, GIS mapping, AI/OCR-assisted document processing and data validation. Built as a hackathon project and still evolving; a live prototype is deployed.",
+      tech: [],
+      techVerified: false,
+      live: "https://smart-bhumi.ai.studio",
+      github: ""
     },
     {
-      title: "Task Manager App", category: "Web App", status: "Deployed",
-      desc: "A productivity app with projects, due dates, drag-and-drop boards and real-time sync across devices.",
-      longDesc: "A kanban-style productivity tool with multiple boards, drag-and-drop tasks, due dates and labels. Data syncs in real time across devices, and the UI stays snappy with optimistic updates and keyboard shortcuts.",
-      tags: ["Next.js", "PostgreSQL", "Tailwind"], link: ""
+      title: "Apna Mess — Roommate Management App",
+      category: "Web Applications",
+      status: "In Development",
+      desc: "A mobile-friendly PWA for two roommates, featuring electricity bills, meal tracking, shared expenses, payments, personal wallets, activity logs and offline synchronisation.",
+      longDesc: "Apna Mess is a private, mobile-friendly PWA built for two roommates. It handles electricity bills, meal tracking, shared expenses, payments, personal wallets and activity logs, with offline synchronisation so it keeps working without a connection. A live deployment is available; the feature set is still growing.",
+      tech: ["React", "Supabase", "PWA"],
+      techVerified: false,
+      techNote: "planned stack — not yet confirmed against the build",
+      live: "https://dwelling-duo-fin.lovable.app",
+      github: ""
     },
     {
-      title: "Blog Platform", category: "Full Stack", status: "Deployment Pending",
-      desc: "A publishing platform with a rich editor, tags, comments and SEO-friendly server-rendered pages.",
-      longDesc: "A content platform with a markdown-rich editor, tags, comments and server-rendered, SEO-friendly pages. Supports drafts, scheduled publishing and role-based access for authors and editors.",
-      tags: ["Next.js", "Express", "PostgreSQL"], link: ""
+      title: "Personal Developer Portfolio",
+      category: "Personal Projects",
+      status: "Live",
+      desc: "A modern personal website introducing Suman Mahata, displaying skills, projects, social profiles, GitHub repositories and freelance availability.",
+      longDesc: "This site — a dark, space-themed portfolio with a Three.js 3D background, animated reveals, project filtering, a command palette and a live GitHub repository feed. The source is split by language: HTML markup, a CSS design system, ES modules for content/UI/3D, plus Node.js and Python dev servers.",
+      tech: ["HTML", "CSS", "JavaScript", "Three.js"],
+      techVerified: true,
+      live: "https://suman876-ops.github.io/suman-portfolio/",
+      github: "https://github.com/suman876-ops/suman-portfolio"
+    },
+    {
+      title: "Portfolio Management Platform",
+      category: "Personal Projects",
+      status: "Concept",
+      desc: "A portfolio platform concept featuring project galleries, resume presentation, blog content, contact functionality and optional analytics.",
+      longDesc: "A concept for a reusable portfolio platform: project galleries, resume presentation, blog content, contact functionality and optional analytics. No deployment or public repository exists yet.",
+      tech: [],
+      techVerified: false,
+      live: "",
+      github: ""
+    },
+    {
+      title: "SMARTWASTE AI",
+      category: "AI and Machine Learning",
+      status: "Concept",
+      desc: "A hackathon concept applying AI to waste management, waste classification and smarter waste-handling workflows.",
+      longDesc: "A hackathon concept exploring how AI can improve waste management — automatic waste classification and smarter waste-handling workflows. Still at the idea stage; no deployment or public repository exists yet.",
+      tech: [],
+      techVerified: false,
+      live: "",
+      github: ""
+    },
+    {
+      title: "AI Legal Metrology Product Scanner",
+      category: "AI and Machine Learning",
+      status: "Concept",
+      desc: "A project concept for scanning product labels and helping validate packaged-product information using image processing or OCR.",
+      longDesc: "A concept for scanning product labels and helping validate packaged-product information — the kind of data covered by legal metrology rules — using image processing or OCR. Still at the idea stage; no deployment or public repository exists yet.",
+      tech: [],
+      techVerified: false,
+      live: "",
+      github: ""
+    },
+    {
+      title: "Personal Record Hub",
+      category: "Web Applications",
+      status: "Concept",
+      desc: "A personal records and document management application concept involving private records, document storage and user data management.",
+      longDesc: "A concept for a personal records and document management application: private records, document storage and user data management. Its development status still needs to be confirmed, and no separate public repository has been verified.",
+      tech: [],
+      techVerified: false,
+      live: "",
+      github: ""
+    }
+  ],
+
+  /* ---------------------------------------------------------------------
+   * Snapshot of the public GitHub repositories for @suman876-ops.
+   * The live site re-fetches this from the GitHub REST API at runtime and
+   * only falls back to this snapshot if the API is unavailable or rate
+   * limited. Fetched 2026-10-20.
+   * -------------------------------------------------------------------*/
+  repoFallback: [
+    {
+      name: "suman-portfolio",
+      description: "Personal portfolio of Suman Mahata — Full Stack Developer. A dark, space-themed site built with HTML, CSS, JavaScript and Three.js.",
+      html_url: "https://github.com/suman876-ops/suman-portfolio",
+      language: "JavaScript", stars: 0, forks: 0,
+      updated_at: "2026-10-20", homepage: "https://suman876-ops.github.io/suman-portfolio/"
+    },
+    {
+      name: "lakshmi-puja",
+      description: "A single-file, cinematic devotional website for Lakshmi Puja — Assamese, with interactive 3D graphics, a generative Web Audio music engine, and a rendered short film. Everything embedded in one HTML file.",
+      html_url: "https://github.com/suman876-ops/lakshmi-puja",
+      language: "HTML", stars: 0, forks: 0,
+      updated_at: "2026-10-19", homepage: ""
+    },
+    {
+      name: "secureshare-site",
+      description: "SecureShare Website — private file and text sharing with OTP verification and auto-expiring links.",
+      html_url: "https://github.com/suman876-ops/secureshare-site",
+      language: "HTML", stars: 0, forks: 0,
+      updated_at: "2026-10-14", homepage: "https://secureshare-site-alpha.vercel.app"
+    },
+    {
+      name: "MoSPI",
+      description: "No description provided.",
+      html_url: "https://github.com/suman876-ops/MoSPI",
+      language: "", stars: 0, forks: 0, updated_at: "2026-09-10", homepage: ""
+    },
+    {
+      name: "suman876-ops",
+      description: "GitHub profile repository.",
+      html_url: "https://github.com/suman876-ops/suman876-ops",
+      language: "", stars: 0, forks: 0, updated_at: "2026-09-10", homepage: ""
     }
   ]
 };

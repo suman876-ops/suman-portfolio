@@ -30,6 +30,35 @@ The site itself is a static front end, but the repository deliberately spreads a
 - **Four accent themes** — Cyan/Violet, Violet/Pink, Emerald/Sky, Amber/Coral (the dots in the footer).
 - **Graceful fallback** — if Three.js can't load, the page drops back to a 2D canvas starfield.
 
+## Project showcase
+
+All eight projects appear in the Projects section, and every card carries three actions:
+
+- **Live Demo** — opens the real deployment. Where no verified deployment exists, the card shows *Live Demo Coming Soon* instead of a link.
+- **Source Code** — opens the public repository. Where none is published, it shows *Source Code Not Publicly Available*.
+- **View Details** — opens a modal with the full description and the same links.
+
+Cards can be searched by name and filtered by category, status and technology.
+
+## GitHub repository feed
+
+The **GitHub Repositories** section calls the GitHub REST API at runtime
+(`api.github.com/users/suman876-ops/repos`) and renders the real response — name,
+description, primary language, stars, forks and last-updated date. If the API is
+unavailable or rate-limited it falls back to a snapshot saved in `js/data.js`, and
+the page says which one you are seeing.
+
+## Honesty notes
+
+Every link in `js/data.js` was added only after being checked:
+
+- **Live demos verified reachable:** SMX, Smart Bhumi, Apna Mess, and this portfolio.
+- **Public source available:** `suman-portfolio` only.
+- Projects with no verified deployment or repository show the informational labels
+  above rather than a guessed URL.
+- `techVerified: false` marks a stack that has not been confirmed against the real
+  build; those chips render as unconfirmed.
+
 ## Running it locally
 
 The site uses ES modules, so it must be served over HTTP (opening `index.html` directly from the filesystem won't work).

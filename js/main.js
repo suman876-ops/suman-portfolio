@@ -2,8 +2,8 @@
  * main.js — UI logic for the portfolio.
  *
  * Content comes from ./data.js, the 3D background from ./scene.js.
- * Everything else (navigation, reveals, tilt, modal, command palette,
- * cursor, preloader) lives here.
+ * Everything else (navigation, reveals, tilt, project filters, the GitHub
+ * repository feed, modal, command palette, cursor, preloader) lives here.
  * ==========================================================================*/
 
 import { DATA, THEMES } from "./data.js";
@@ -28,8 +28,8 @@ function applyTheme(name) {
   if (scene3d) scene3d.setColors(t.hex, t.hex2);
 }
 
-/* ---------- render ---------- */
-function render() {
+/* ---------- generic bindings ---------- */
+function renderBindings() {
   $$("[data-bind]").forEach((el) => {
     const k = el.getAttribute("data-bind");
     const v = DATA[k];
@@ -75,20 +75,6 @@ function render() {
       <div class="pbar"><span data-lvl="${esc(s.level)}"></span></div>
     </div>`).join("");
 
-  $("#projectsWrap").innerHTML = (DATA.projects || []).map((p, i) => `
-    <article class="proj tilt reveal" data-tilt="8" data-p="${i}">
-      <div class="ph">
-        <span>System_View_${String(i + 1).padStart(2, "0")}</span>
-        <span class="st ${/pending/i.test(p.status) ? "pend" : ""}">${esc(p.status)}</span>
-      </div>
-      <h3>${esc(p.title)}</h3>
-      <div class="cat">${esc(p.category)}</div>
-      <p>${esc(p.desc)}</p>
-      <div class="tags">${(p.tags || []).map((t) => `<span>${esc(t)}</span>`).join("")}</div>
-      <span class="more">OPEN DETAILS →</span>
-      <span class="idx">${String(i + 1).padStart(2, "0")}</span>
-    </article>`).join("");
-
   const socials = [["GitHub", DATA.github], ["LinkedIn", DATA.linkedin], ["Twitter", DATA.twitter]]
     .filter((s) => s[1]);
   $("#socials").innerHTML = socials
@@ -100,16 +86,208 @@ function render() {
   $$("#accentDots button").forEach((b) => b.addEventListener("click", () => {
     DATA.accent = b.getAttribute("data-accent");
     applyTheme(DATA.accent);
-    render();
+    renderBindings();
   }));
 
   applyTheme(DATA.accent);
-  observeReveals();
-  initBars();
-  initCounters();
-  bindTilt();
-  bindMagnetic();
 }
+
+/* ============================================================================
+ * PROJECTS — search + category / status / tech filters
+ * ==========================================================================*/
+
+const filter = { q: "", category: "All", status: "All", tech: "All" };
+let visibleProjects = [];   // the indices currently shown (used by the modal)
+
+function allTech() {
+  const set = new Set();
+  (DATA.projects || []).forEach((p) => (p.tech || []).forEach((t) => set.add(t)));
+  return [...set].sort();
+}
+
+function buildFilters() {
+  const cats = ["All", ...(DATA.categories || [])];
+  $("#pCats").innerHTML = cats.map((c) =>
+    `<button class="fchip ${filter.category === c ? "on" : ""}" data-fcat="${esc(c)}">${esc(c)}</button>`).join("");
+
+  const usedStatuses = [...new Set((DATA.projects || []).map((p) => p.status))];
+  const stats = ["All", ...usedStatuses];
+  $("#pStats").innerHTML = stats.map((s) =>
+    `<button class="fchip ${filter.status === s ? "on" : ""}" data-fstatus="${esc(s)}">${esc(s)}</button>`).join("");
+
+  const techs = ["All", ...allTech()];
+  $("#pTech").innerHTML = techs.map((t) =>
+    `<option value="${esc(t)}" ${filter.tech === t ? "selected" : ""}>${t === "All" ? "All technologies" : esc(t)}</option>`).join("");
+
+  $$("#pCats [data-fcat]").forEach((b) => b.addEventListener("click", () => {
+    filter.category = b.getAttribute("data-fcat"); buildFilters(); renderProjects();
+  }));
+  $$("#pStats [data-fstatus]").forEach((b) => b.addEventListener("click", () => {
+    filter.status = b.getAttribute("data-fstatus"); buildFilters(); renderProjects();
+  }));
+  $("#pTech").addEventListener("change", (e) => { filter.tech = e.target.value; renderProjects(); });
+  $("#pSearch").addEventListener("input", (e) => { filter.q = e.target.value.toLowerCase().trim(); renderProjects(); });
+}
+
+function matches(p) {
+  if (filter.q && !p.title.toLowerCase().includes(filter.q)) return false;
+  if (filter.category !== "All" && p.category !== filter.category) return false;
+  if (filter.status !== "All" && p.status !== filter.status) return false;
+  if (filter.tech !== "All" && !(p.tech || []).includes(filter.tech)) return false;
+  return true;
+}
+
+function projectCard(p, i) {
+  const pending = /pending/i.test(p.status);
+  const techChips = (p.tech || []).length
+    ? (p.tech || []).map((t) => `<span class="${p.techVerified ? "" : "unconfirmed"}" title="${p.techVerified ? "" : "Stack not yet confirmed"}">${esc(t)}</span>`).join("")
+    : `<span class="unconfirmed">Stack to be confirmed</span>`;
+
+  const liveBtn = p.live
+    ? `<a class="pact live" href="${esc(p.live)}" target="_blank" rel="noopener noreferrer" aria-label="Open the live demo of ${esc(p.title)}">Live Demo ↗</a>`
+    : `<span class="pact off" aria-disabled="true" title="No verified live deployment yet">Live Demo Coming Soon</span>`;
+
+  const srcBtn = p.github
+    ? `<a class="pact src" href="${esc(p.github)}" target="_blank" rel="noopener noreferrer" aria-label="Open the source code of ${esc(p.title)} on GitHub">Source Code ↗</a>`
+    : `<span class="pact off" aria-disabled="true" title="No public repository verified for this project">Source Code Not Publicly Available</span>`;
+
+  return `
+    <article class="proj tilt reveal" data-tilt="7" data-p="${i}">
+      <div class="ph">
+        <span>System_View_${String(i + 1).padStart(2, "0")}</span>
+        <span class="st ${pending ? "pend" : ""}">${esc(p.status)}</span>
+      </div>
+      <h3>${esc(p.title)}</h3>
+      <div class="cat">${esc(p.category)}</div>
+      <p>${esc(p.desc)}</p>
+      <div class="tags">${techChips}</div>
+      <div class="proj-actions">
+        ${liveBtn}
+        ${srcBtn}
+        <button class="pact detail" data-detail="${i}" aria-label="View details of ${esc(p.title)}">View Details</button>
+      </div>
+      <span class="idx">${String(i + 1).padStart(2, "0")}</span>
+    </article>`;
+}
+
+function renderProjects() {
+  const list = (DATA.projects || []).map((p, i) => [p, i]).filter(([p]) => matches(p));
+  visibleProjects = list.map(([, i]) => i);
+  $("#pCount").textContent = `${list.length} of ${(DATA.projects || []).length} projects`;
+
+  $("#projectsWrap").innerHTML = list.length
+    ? list.map(([p, i]) => projectCard(p, i)).join("")
+    : `<div class="no-results">No projects match those filters. Try clearing the search or picking “All”.</div>`;
+
+  observeReveals();
+  bindTilt();
+}
+
+/* ============================================================================
+ * GITHUB REPOSITORY DISCOVERY
+ * Fetches the real public repos from the GitHub REST API at runtime, and
+ * falls back to the saved snapshot if the API is unavailable or rate limited.
+ * ==========================================================================*/
+
+function repoCard(r) {
+  const meta = [];
+  if (r.language) meta.push(`<span class="rlang">${esc(r.language)}</span>`);
+  meta.push(`<span>★ ${r.stars}</span>`);
+  meta.push(`<span>⑂ ${r.forks}</span>`);
+  if (r.updated_at) meta.push(`<span>updated ${esc(String(r.updated_at).slice(0, 10))}</span>`);
+
+  const links = [
+    `<a class="pact src" href="${esc(r.html_url)}" target="_blank" rel="noopener noreferrer">Repository ↗</a>`
+  ];
+  if (r.homepage) {
+    links.push(`<a class="pact live" href="${esc(r.homepage)}" target="_blank" rel="noopener noreferrer">Live ↗</a>`);
+  }
+  return `
+    <article class="repo reveal">
+      <h3>${esc(r.name)}</h3>
+      <p>${esc(r.description || "No description provided.")}</p>
+      <div class="rmeta">${meta.join("")}</div>
+      <div class="proj-actions">${links.join("")}</div>
+    </article>`;
+}
+
+async function loadRepos() {
+  const host = $("#repoList");
+  host.innerHTML = `<div class="repo-note">Fetching repositories from GitHub…</div>`;
+  let repos = null, live = false;
+
+  try {
+    const res = await fetch(
+      `https://api.github.com/users/${encodeURIComponent(DATA.githubUser)}/repos?per_page=100&sort=updated`,
+      { headers: { Accept: "application/vnd.github+json" } }
+    );
+    if (res.ok) {
+      const json = await res.json();
+      if (Array.isArray(json)) {
+        repos = json.map((r) => ({
+          name: r.name,
+          description: r.description,
+          html_url: r.html_url,
+          language: r.language,
+          stars: r.stargazers_count,
+          forks: r.forks_count,
+          updated_at: r.updated_at,
+          homepage: r.homepage
+        }));
+        live = true;
+      }
+    }
+  } catch (err) {
+    /* network blocked / offline — fall through to the snapshot */
+  }
+
+  if (!repos) repos = DATA.repoFallback;
+
+  $("#repoStatus").innerHTML = live
+    ? `<span class="ok">●</span> Live from the GitHub API — ${repos.length} public repositories`
+    : `<span class="warn">●</span> GitHub API unavailable right now — showing a saved snapshot from 20 Oct 2026`;
+  host.innerHTML = repos.length
+    ? repos.map(repoCard).join("")
+    : `<div class="repo-note">No public repositories found.</div>`;
+  observeReveals();
+}
+
+/* ============================================================================
+ * MODAL
+ * ==========================================================================*/
+const modal = $("#modal");
+
+function openProject(i) {
+  const p = (DATA.projects || [])[i];
+  if (!p) return;
+  $("#mCat").textContent = p.category || "";
+  $("#mTitle").textContent = p.title || "";
+  $("#mSt").textContent = p.status || "";
+  $("#mDesc").textContent = p.longDesc || p.desc || "";
+
+  const tech = (p.tech || []).length
+    ? (p.tech || []).map((t) => `<span class="${p.techVerified ? "" : "unconfirmed"}">${esc(t)}</span>`).join("")
+    : `<span class="unconfirmed">Stack to be confirmed</span>`;
+  $("#mTags").innerHTML = tech;
+
+  const live = $("#mLive"), src = $("#mSource");
+  if (p.live) { live.style.display = "inline-flex"; live.href = p.live; } else live.style.display = "none";
+  if (p.github) { src.style.display = "inline-flex"; src.href = p.github; } else src.style.display = "none";
+  if (!p.live) $("#mNoLive").style.display = "block"; else $("#mNoLive").style.display = "none";
+
+  modal.classList.add("on");
+}
+
+document.addEventListener("click", (e) => {
+  if (e.target.closest("[data-close]")) { modal.classList.remove("on"); return; }
+  const detail = e.target.closest("[data-detail]");
+  if (detail) { openProject(+detail.getAttribute("data-detail")); return; }
+  // clicking the card body (but not a link/button) also opens details
+  const card = e.target.closest(".proj");
+  if (card && !e.target.closest("a") && !e.target.closest("button")) {
+    openProject(+card.getAttribute("data-p"));
+  }
+});
 
 /* ---------- typewriter ---------- */
 let tIdx = 0, tChar = 0, del = false;
@@ -228,34 +406,13 @@ cp.addEventListener("click", () => {
   setTimeout(() => { cp.textContent = "CLICK TO COPY"; }, 1400);
 });
 
-/* ---------- contact form (opens the visitor's mail client) ---------- */
+/* ---------- contact form ---------- */
 $("#contactForm").addEventListener("submit", (e) => {
   e.preventDefault();
   const d = new FormData(e.target);
   const subject = encodeURIComponent("Portfolio enquiry from " + d.get("name"));
   const body = encodeURIComponent(d.get("msg") + "\n\n— " + d.get("name") + " (" + d.get("email") + ")");
   window.location.href = "mailto:" + DATA.email + "?subject=" + subject + "&body=" + body;
-});
-
-/* ---------- project modal ---------- */
-const modal = $("#modal");
-function openProject(i) {
-  const p = (DATA.projects || [])[i];
-  if (!p) return;
-  $("#mCat").textContent = p.category || "";
-  $("#mTitle").textContent = p.title || "";
-  $("#mSt").textContent = p.status || "";
-  $("#mDesc").textContent = p.longDesc || p.desc || "";
-  $("#mTags").innerHTML = (p.tags || []).map((t) => `<span>${esc(t)}</span>`).join("");
-  const lnk = $("#mLink");
-  if (p.link) { lnk.style.display = "inline-flex"; lnk.href = p.link; }
-  else lnk.style.display = "none";
-  modal.classList.add("on");
-}
-document.addEventListener("click", (e) => {
-  const card = e.target.closest(".proj");
-  if (card && !e.target.closest("a")) openProject(+card.getAttribute("data-p"));
-  if (e.target.closest("[data-close]")) modal.classList.remove("on");
 });
 
 /* ---------- command palette ---------- */
@@ -265,6 +422,7 @@ const COMMANDS = [
   { t: "Go to About", s: "section", k: "about" },
   { t: "Go to Skills", s: "section", k: "skills" },
   { t: "Go to Projects", s: "section", k: "projects" },
+  { t: "Go to GitHub Repositories", s: "section", k: "github" },
   { t: "Go to Contact", s: "section", k: "contact" },
   { t: "Copy email address", s: "action", k: "copy" },
   { t: "Cycle accent theme", s: "action", k: "theme" },
@@ -286,7 +444,7 @@ function runCmd(k) {
     const keys = Object.keys(THEMES);
     DATA.accent = keys[(keys.indexOf(DATA.accent) + 1) % keys.length];
     applyTheme(DATA.accent);
-    render();
+    renderBindings();
   }
   else if (k === "top") window.scrollTo({ top: 0, behavior: "smooth" });
   else { const el = document.getElementById(k); if (el) el.scrollIntoView({ behavior: "smooth" }); }
@@ -322,7 +480,7 @@ cmdList.addEventListener("click", (e) => {
 });
 document.addEventListener("click", (e) => { if (e.target.closest("[data-cmdclose]")) cmd.classList.remove("on"); });
 
-/* ---------- custom cursor (desktop only) ---------- */
+/* ---------- custom cursor ---------- */
 (function cursor() {
   if (window.matchMedia("(hover:none)").matches) return;
   const c = $("#cur"), d = $("#curD");
@@ -338,7 +496,7 @@ document.addEventListener("click", (e) => { if (e.target.closest("[data-cmdclose
     d.style.transform = `translate(${dx}px,${dy}px)`;
     requestAnimationFrame(loop);
   })();
-  const hot = "a,button,.proj,.chip,input,textarea,select,[data-tilt]";
+  const hot = "a,button,.proj,.repo,.chip,input,textarea,select,[data-tilt]";
   document.addEventListener("mouseover", (e) => { if (e.target.closest(hot)) document.body.classList.add("cur-hover"); });
   document.addEventListener("mouseout", (e) => { if (e.target.closest(hot)) document.body.classList.remove("cur-hover"); });
   document.addEventListener("mouseleave", () => document.body.classList.add("cur-hide"));
@@ -374,7 +532,10 @@ function starfield2D() {
 
 /* ---------- boot ---------- */
 $("#yr2").textContent = new Date().getFullYear();
-render();
+renderBindings();
+buildFilters();
+renderProjects();
+loadRepos();
 type();
 onScroll();
 

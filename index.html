@@ -38,6 +38,7 @@
       <a href="#about">About</a>
       <a href="#skills">Skills</a>
       <a href="#projects">Projects</a>
+      <a href="#github">GitHub</a>
       <a href="#contact">Contact</a>
     </nav>
     <div style="display:flex;gap:12px;align-items:center">
@@ -132,10 +133,32 @@
 <section class="blk" id="projects">
   <div class="wrap">
     <div class="sec-head reveal">
-      <div><div class="sec-num">04 — Selected Works</div><h2>Deployed <span class="hl">Missions</span></h2></div>
-      <div class="r">Click a card<br>for full details</div>
+      <div><div class="sec-num">04 — Selected Works</div><h2>Project <span class="hl">Showcase</span></h2></div>
+      <div class="r">Search &amp; filter<br>· click a card for details</div>
     </div>
+
+    <div class="filters reveal">
+      <input id="pSearch" type="search" placeholder="Search projects by name…" aria-label="Search projects by name">
+      <div class="frow"><span class="flabel">Category</span><div class="fchips" id="pCats"></div></div>
+      <div class="frow"><span class="flabel">Status</span><div class="fchips" id="pStats"></div></div>
+      <div class="frow"><span class="flabel">Technology</span><select id="pTech" aria-label="Filter projects by technology"></select></div>
+      <div class="fcount" id="pCount"></div>
+    </div>
+
     <div class="proj-grid" id="projectsWrap"></div>
+  </div>
+</section>
+
+<!-- GITHUB REPOSITORIES -->
+<section class="blk" id="github">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div><div class="sec-num">05 — Open Source</div><h2>GitHub <span class="hl">Repositories</span></h2></div>
+      <div class="r">Fetched from the<br>GitHub REST API</div>
+    </div>
+    <div class="repo-status" id="repoStatus"></div>
+    <div class="repo-grid" id="repoList"></div>
+    <a class="btn ghost mag reveal" href="https://github.com/suman876-ops" target="_blank" rel="noopener noreferrer" style="margin-top:34px">View full profile on GitHub →</a>
   </div>
 </section>
 
@@ -143,7 +166,7 @@
 <section class="blk contact" id="contact">
   <div class="wrap">
     <div class="sec-head reveal">
-      <div><div class="sec-num">05 — Communication Link</div><h2>Establish <span class="hl">Uplink</span></h2></div>
+      <div><div class="sec-num">06 — Communication Link</div><h2>Establish <span class="hl">Uplink</span></h2></div>
       <div class="r">Available For Freelance<br>Ready for new projects</div>
     </div>
     <div class="contact-grid">
@@ -173,7 +196,7 @@
       <div class="meta" style="text-align:left;margin-top:8px">Designed &amp; Deployed by <span data-bind="name">Suman Mahata</span></div>
       <div class="accent-dots" id="accentDots" style="margin-top:16px"></div>
     </div>
-    <div class="meta">© <span id="yr2">2026</span> Edition • V3.0.0<br>HTML / CSS / JS / Three.js</div>
+    <div class="meta">© <span id="yr2">2026</span> Edition • V3.1.0<br>HTML / CSS / JS / Three.js</div>
   </div>
 </footer>
 
@@ -189,7 +212,11 @@
     <div class="mst" id="mSt"></div>
     <p id="mDesc"></p>
     <div class="tags" id="mTags"></div>
-    <a class="btn mag" id="mLink" target="_blank" rel="noopener" style="display:none">Visit project →</a>
+    <div class="mnote" id="mNoLive" style="display:none">No verified live deployment yet — this project is still in progress.</div>
+    <div class="proj-actions" style="margin-top:6px">
+      <a class="btn mag" id="mLive" target="_blank" rel="noopener noreferrer" style="display:none">Live Demo ↗</a>
+      <a class="btn ghost mag" id="mSource" target="_blank" rel="noopener noreferrer" style="display:none">Source Code ↗</a>
+    </div>
   </div>
 </div>
 
