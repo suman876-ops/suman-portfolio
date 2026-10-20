@@ -1,0 +1,25 @@
+{
+  "name": "suman-portfolio",
+  "version": "3.0.0",
+  "description": "Personal portfolio of Suman Mahata — Full Stack Developer. HTML, CSS, JavaScript and Three.js, with Node.js and Python dev servers.",
+  "author": "Suman Mahata",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "node server/server.js",
+    "serve": "node server/server.js",
+    "serve:py": "python3 server/app.py"
+  },
+  "keywords": [
+    "portfolio",
+    "threejs",
+    "html",
+    "css",
+    "javascript",
+    "nodejs",
+    "python"
+  ],
+  "engines": {
+    "node": ">=16"
+  }
+}

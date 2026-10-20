@@ -1,31 +1,68 @@
 # Suman Mahata — Portfolio
 
-A dark, space-themed personal portfolio for **Suman Mahata**, Full Stack Developer.
+A dark, space-themed personal portfolio for **Suman Mahata**, Full Stack Developer — built as a small multi-language project rather than one giant file.
 
-Built as a single self-contained `index.html` — no build step, no dependencies to install. Just open it in a browser or host it anywhere static.
+**Live:** https://suman876-ops.github.io/suman-portfolio/
 
-## Highlights
+---
 
-- **3D background** built with [Three.js](https://threejs.org/): a drifting starfield, a wireframe planet with orbiting rings, floating geometry and glow sprites, with mouse and scroll parallax.
-- **Modern UI**: animated preloader, custom cursor, scroll-progress bar, 3D tilt cards, magnetic buttons, animated counters, a marquee strip, and a project detail modal.
-- **Command palette** — press `Ctrl`/`Cmd` + `K` to navigate, open the admin, copy the email or cycle themes.
-- **Accent themes** — four colour palettes (Cyan/Violet, Violet/Pink, Emerald/Sky, Amber/Coral).
-- **Built-in admin console** — edit every piece of content (identity, about, stats, timeline, skills, projects, contact, marquee) right in the browser. Open it with the ⚙ button at the bottom-right. Default password: `admin123`. Changes save to your browser's local storage, and you can export/import the content as JSON.
+## What's inside
 
-## Tech
+The site itself is a static front end, but the repository deliberately spreads across several languages so each concern lives in its own file:
 
-HTML, CSS, vanilla JavaScript, Three.js (loaded from a CDN). The profile photo is embedded in the file as a data URI.
+| Language | Files | What it does |
+|---|---|---|
+| **HTML** | `index.html` | Page structure and markup |
+| **CSS** | `css/style.css` | The whole design system — layout, theme variables, animation |
+| **JavaScript** | `js/data.js` | All site content (one plain object) |
+| | `js/main.js` | UI logic — navigation, reveals, tilt, modal, command palette, cursor |
+| | `js/scene.js` | The Three.js 3D background |
+| **Node.js** | `server/server.js` | Zero-dependency local dev server |
+| **Python** | `server/app.py` | The same dev server, in the standard library |
+| **Bash** | `deploy.sh` | One-command commit + push |
+| **JSON** | `package.json` | Project metadata and run scripts |
 
-## Run locally
+## Features
 
-Just open `index.html` in a browser. For a local server:
+- **3D background** with Three.js — a drifting starfield, a wireframe planet with orbiting rings, floating geometry and glow sprites, with mouse and scroll parallax.
+- **Modern UI** — animated preloader, custom cursor, scroll-progress bar, 3D tilt cards, magnetic buttons, animated counters, a marquee strip and a project detail modal.
+- **Command palette** — press `Ctrl`/`Cmd` + `K` to navigate, copy the email or cycle themes.
+- **Four accent themes** — Cyan/Violet, Violet/Pink, Emerald/Sky, Amber/Coral (the dots in the footer).
+- **Graceful fallback** — if Three.js can't load, the page drops back to a 2D canvas starfield.
+
+## Running it locally
+
+The site uses ES modules, so it must be served over HTTP (opening `index.html` directly from the filesystem won't work).
+
+**Node.js**
+```bash
+npm start            # or: node server/server.js
+```
+
+**Python 3** (no Node required)
+```bash
+python3 server/app.py
+```
+
+Then open http://localhost:3000
+
+## Editing the content
+
+Everything you see on the page comes from `js/data.js` — name, tagline, about text, stats, education timeline, skills, projects and contact links. Change a value there and the site updates; no build step.
+
+## Deploying
 
 ```bash
-python3 -m http.server 8000
-# then visit http://localhost:8000
+./deploy.sh "your commit message"
 ```
+
+This stages, commits and pushes to `main`. GitHub Pages rebuilds automatically.
 
 ## Notes
 
-- The Three.js library and Google Fonts load from the internet. If Three.js is unavailable the site automatically falls back to a 2D starfield.
-- The content shipped in the file is placeholder text — replace it with your real details via the admin console before sharing.
+- Three.js and the Google Fonts are loaded from CDNs, so the 3D scene needs an internet connection (the 2D fallback does not).
+- The profile photo lives at `images/profile.jpg`.
+
+## License
+
+[MIT](LICENSE) © 2026 Suman Mahata

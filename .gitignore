@@ -1,0 +1,19 @@
+# dependencies
+node_modules/
+
+# python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# os / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+
+# logs
+*.log
+npm-debug.log*
