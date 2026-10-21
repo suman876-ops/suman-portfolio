@@ -37,6 +37,7 @@ const ICONS = {
   search: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"><circle cx="11" cy="11" r="6.6"/><path d="m16.2 16.2 4.3 4.3"/></svg>',
   refresh: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"><path d="M20.4 12a8.4 8.4 0 1 1-2.5-6"/><path d="M20.4 4.6V10h-5.4"/></svg>',
   tag: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"><path d="M20.6 13.4 13.4 20.6a1.9 1.9 0 0 1-2.7 0l-7.3-7.3a1.9 1.9 0 0 1-.55-1.35V4.6c0-.6.5-1.1 1.1-1.1h7.35c.5 0 .99.2 1.35.55l7.3 7.3a1.9 1.9 0 0 1 0 2.7Z"/><circle cx="7.6" cy="7.6" r="1.35"/></svg>',
+  hash: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"><path d="M9.6 3.5 7.4 20.5"/><path d="M16.6 3.5l-2.2 17"/><path d="M4.2 8.8h15.6"/><path d="M3.6 15.2h15.6"/></svg>',
 };
 
 function applyIcons(root) {
@@ -94,7 +95,7 @@ function renderBindings() {
       <h3>${esc(it.role)}</h3>
       <div class="org">// ${esc(it.org)}</div>
       <p>${esc(it.desc)}</p>
-      <div class="chips">${(it.tags || []).map((t) => `<span class="chip">${ICONS.tag}${esc(t)}</span>`).join("")}</div>
+      <div class="chips">${(it.tags || []).map((t) => `<span class="chip"><span class="ico">${ICONS.hash}</span>${esc(t)}</span>`).join("")}</div>
     </div>`).join("");
 
   $("#skillsWrap").innerHTML = (DATA.skills || []).map((s) => `
@@ -180,11 +181,11 @@ function projectCard(p, i) {
     : `<span class="unconfirmed">Stack to be confirmed</span>`;
 
   const liveBtn = p.live
-    ? `<a class="pact live" href="${esc(p.live)}" target="_blank" rel="noopener noreferrer" aria-label="Open the live demo of ${esc(p.title)}">Live Demo ${ICONS.external}</a>`
+    ? `<a class="pact live" href="${esc(p.live)}" target="_blank" rel="noopener noreferrer" aria-label="Open the live demo of ${esc(p.title)}">Live Demo <span class="ico">${ICONS.external}</span></a>`
     : `<span class="pact off" aria-disabled="true" title="No verified live deployment yet">Live Demo Coming Soon</span>`;
 
   const srcBtn = p.github
-    ? `<a class="pact src" href="${esc(p.github)}" target="_blank" rel="noopener noreferrer" aria-label="Open the source code of ${esc(p.title)} on GitHub">Source Code ${ICONS.code}</a>`
+    ? `<a class="pact src" href="${esc(p.github)}" target="_blank" rel="noopener noreferrer" aria-label="Open the source code of ${esc(p.title)} on GitHub">Source Code <span class="ico">${ICONS.code}</span></a>`
     : `<span class="pact off" aria-disabled="true" title="No public repository verified for this project">Source Code Not Publicly Available</span>`;
 
   return `
@@ -200,7 +201,7 @@ function projectCard(p, i) {
       <div class="proj-actions">
         ${liveBtn}
         ${srcBtn}
-        <button class="pact detail" data-detail="${i}" aria-label="View details of ${esc(p.title)}">View Details ${ICONS.eye}</button>
+        <button class="pact detail" data-detail="${i}" aria-label="View details of ${esc(p.title)}">View Details <span class="ico">${ICONS.eye}</span></button>
       </div>
       <span class="idx">${String(i + 1).padStart(2, "0")}</span>
     </article>`;

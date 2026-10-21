@@ -432,8 +432,9 @@ a.pact.src:hover{background:var(--mag);color:#0b0416;box-shadow:0 0 24px color-m
 .to-top .ico{width:18px;height:18px}
 .cico{border-radius:50%}
 .cico svg{width:20px;height:20px}
-.chip{display:inline-flex;align-items:center;gap:6px}
-.chip .ico{width:11px;height:11px;opacity:.7}
+.chip{display:inline-flex;align-items:center;gap:7px}
+.chip .ico{width:10px;height:10px;opacity:.5;transition:opacity .25s}
+.chip:hover .ico{opacity:.95}
 .searchwrap{position:relative}
 .searchwrap .ico{position:absolute;left:15px;top:50%;transform:translateY(-50%);width:16px;height:16px;color:var(--muted2);pointer-events:none}
 .filters .searchwrap input[type=search]{padding-left:44px}

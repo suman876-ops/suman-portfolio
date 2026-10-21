@@ -28,7 +28,7 @@ The site itself is a static front end, but the repository deliberately spreads a
 - **Modern UI** — animated preloader, custom cursor, scroll-progress bar, 3D tilt cards, magnetic buttons, animated counters, a marquee strip and a project detail modal.
 - **Glass-pill navigation** with a frosted brand pill and an active-section highlight.
 - **One consistent icon set** — a single 24×24 stroke-icon system (mail, location, clock,
-  bolt, spark, arrows, external-link, code, eye, search, refresh, tag) drawn in
+  bolt, spark, arrows, external-link, code, eye, search, refresh, hash) drawn in
   `currentColor`, so nothing relies on emoji or stray text glyphs.
 - **Binary rain** — falling `0`/`1` columns animate behind the hero portrait, which is a
   cut-out (`images/profile-cutout.webp`) so the code shows through around the subject.
