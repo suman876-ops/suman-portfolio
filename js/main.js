@@ -22,6 +22,30 @@ const SOCIAL_ICONS = {
   Twitter: '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg>'
 };
 
+/* Line icons — one consistent 24x24 stroke set, coloured by currentColor. */
+const ICONS = {
+  mail: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"><rect x="2.5" y="4.75" width="19" height="14.5" rx="2.6"/><path d="m3.4 6.9 7.75 5.7a1.5 1.5 0 0 0 1.7 0l7.75-5.7"/></svg>',
+  pin: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"><path d="M12 21.5s7.2-5.9 7.2-11.2A7.2 7.2 0 0 0 4.8 10.3c0 5.3 7.2 11.2 7.2 11.2Z"/><circle cx="12" cy="10.2" r="2.7"/></svg>',
+  clock: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"><circle cx="12" cy="12" r="8.6"/><path d="M12 7.2V12l3.1 1.9"/></svg>',
+  zap: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"><path d="M13.2 2.6 4.6 13.3a.55.55 0 0 0 .43.9h6.1l-1.33 7.2a.55.55 0 0 0 .98.42l8.6-10.7a.55.55 0 0 0-.43-.9h-6.1l1.33-7.2a.55.55 0 0 0-.98-.42Z"/></svg>',
+  spark: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"><path d="M11 3.2 12.7 8l4.8 1.7-4.8 1.7L11 16.2 9.3 11.4 4.5 9.7 9.3 8 11 3.2Z"/><path d="M18 14.5l.85 2.25L21.1 17.6l-2.25.85L18 20.7l-.85-2.25L14.9 17.6l2.25-.85L18 14.5Z"/></svg>',
+  "arrow-right": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9"><path d="M4.5 12h14.5"/><path d="m13 6 6 6-6 6"/></svg>',
+  "arrow-up": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9"><path d="M12 19.5V5"/><path d="m6 11 6-6 6 6"/></svg>',
+  external: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"><path d="M13.5 4.5h6v6"/><path d="M19.5 4.5 11.2 12.8"/><path d="M18 14.2V18a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h3.8"/></svg>',
+  code: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"><path d="m9 7.5-5 4.5 5 4.5"/><path d="m15 7.5 5 4.5-5 4.5"/></svg>',
+  eye: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"><path d="M2.5 12S6 5.8 12 5.8 21.5 12 21.5 12 18 18.2 12 18.2 2.5 12 2.5 12Z"/><circle cx="12" cy="12" r="3"/></svg>',
+  search: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"><circle cx="11" cy="11" r="6.6"/><path d="m16.2 16.2 4.3 4.3"/></svg>',
+  refresh: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"><path d="M20.4 12a8.4 8.4 0 1 1-2.5-6"/><path d="M20.4 4.6V10h-5.4"/></svg>',
+  tag: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"><path d="M20.6 13.4 13.4 20.6a1.9 1.9 0 0 1-2.7 0l-7.3-7.3a1.9 1.9 0 0 1-.55-1.35V4.6c0-.6.5-1.1 1.1-1.1h7.35c.5 0 .99.2 1.35.55l7.3 7.3a1.9 1.9 0 0 1 0 2.7Z"/><circle cx="7.6" cy="7.6" r="1.35"/></svg>',
+};
+
+function applyIcons(root) {
+  (root || document).querySelectorAll("[data-icon]").forEach((el) => {
+    const svg = ICONS[el.getAttribute("data-icon")];
+    if (svg) el.innerHTML = svg;
+  });
+}
+
 let scene3d = null; // set once the 3D scene is ready
 
 /* ---------- theme ---------- */
@@ -70,7 +94,7 @@ function renderBindings() {
       <h3>${esc(it.role)}</h3>
       <div class="org">// ${esc(it.org)}</div>
       <p>${esc(it.desc)}</p>
-      <div class="chips">${(it.tags || []).map((t) => `<span class="chip"># ${esc(t)}</span>`).join("")}</div>
+      <div class="chips">${(it.tags || []).map((t) => `<span class="chip">${ICONS.tag}${esc(t)}</span>`).join("")}</div>
     </div>`).join("");
 
   $("#skillsWrap").innerHTML = (DATA.skills || []).map((s) => `
@@ -156,11 +180,11 @@ function projectCard(p, i) {
     : `<span class="unconfirmed">Stack to be confirmed</span>`;
 
   const liveBtn = p.live
-    ? `<a class="pact live" href="${esc(p.live)}" target="_blank" rel="noopener noreferrer" aria-label="Open the live demo of ${esc(p.title)}">Live Demo ↗</a>`
+    ? `<a class="pact live" href="${esc(p.live)}" target="_blank" rel="noopener noreferrer" aria-label="Open the live demo of ${esc(p.title)}">Live Demo ${ICONS.external}</a>`
     : `<span class="pact off" aria-disabled="true" title="No verified live deployment yet">Live Demo Coming Soon</span>`;
 
   const srcBtn = p.github
-    ? `<a class="pact src" href="${esc(p.github)}" target="_blank" rel="noopener noreferrer" aria-label="Open the source code of ${esc(p.title)} on GitHub">Source Code ↗</a>`
+    ? `<a class="pact src" href="${esc(p.github)}" target="_blank" rel="noopener noreferrer" aria-label="Open the source code of ${esc(p.title)} on GitHub">Source Code ${ICONS.code}</a>`
     : `<span class="pact off" aria-disabled="true" title="No public repository verified for this project">Source Code Not Publicly Available</span>`;
 
   return `
@@ -176,7 +200,7 @@ function projectCard(p, i) {
       <div class="proj-actions">
         ${liveBtn}
         ${srcBtn}
-        <button class="pact detail" data-detail="${i}" aria-label="View details of ${esc(p.title)}">View Details</button>
+        <button class="pact detail" data-detail="${i}" aria-label="View details of ${esc(p.title)}">View Details ${ICONS.eye}</button>
       </div>
       <span class="idx">${String(i + 1).padStart(2, "0")}</span>
     </article>`;
@@ -566,6 +590,7 @@ renderProjects();
 type();
 onScroll();
 initBinaryRain();
+applyIcons();
 
 scene3d = await initScene();
 if (scene3d) applyTheme(DATA.accent);

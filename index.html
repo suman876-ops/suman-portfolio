@@ -63,8 +63,8 @@
         <div class="m"><small>Current Status</small><span data-bind="status">AVAILABLE FOR FREELANCE</span></div>
       </div>
       <div class="hero-cta">
-        <a href="#projects" class="btn mag">View Work →</a>
-        <a href="#contact" class="btn ghost mag">Get in Touch</a>
+        <a href="#projects" class="btn mag">View Work <span class="ico" data-icon="arrow-right"></span></a>
+        <a href="#contact" class="btn ghost mag">Get in Touch <span class="ico" data-icon="arrow-right"></span></a>
       </div>
     </div>
     <div class="photo-frame tilt" data-tilt="12">
@@ -129,7 +129,7 @@
       <div class="r">Engineering<br>Mainframe</div>
     </div>
     <div class="skills-grid" id="skillsWrap"></div>
-    <button class="btn scan-btn reveal mag" id="scanBtn">› INITIALIZE FULL SCAN</button>
+    <button class="btn scan-btn reveal mag" id="scanBtn"><span class="ico" data-icon="refresh"></span> INITIALIZE FULL SCAN</button>
   </div>
 </section>
 
@@ -142,7 +142,7 @@
     </div>
 
     <div class="filters reveal">
-      <input id="pSearch" type="search" placeholder="Search projects by name…" aria-label="Search projects by name">
+      <div class="searchwrap"><span class="ico" data-icon="search"></span><input id="pSearch" type="search" placeholder="Search projects by name…" aria-label="Search projects by name"></div>
       <div class="frow"><span class="flabel">Category</span><div class="fchips" id="pCats"></div></div>
       <div class="frow"><span class="flabel">Status</span><div class="fchips" id="pStats"></div></div>
       <div class="frow"><span class="flabel">Technology</span><select id="pTech" aria-label="Filter projects by technology"></select></div>
@@ -167,24 +167,24 @@
 
         <div class="ccards">
           <div class="ccard glass wide">
-            <span class="cico">✉</span>
+            <span class="cico" data-icon="mail"></span>
             <span class="cbody"><small>Email</small><b><a data-bind="email" data-href="mailto" href="#">email</a></b></span>
             <button class="ccopy" id="copyEmail" type="button" aria-label="Copy email address">Copy</button>
           </div>
           <div class="ccard glass">
-            <span class="cico">◉</span>
+            <span class="cico" data-icon="pin"></span>
             <span class="cbody"><small>Location</small><b data-bind="locationShort">Jhargram, West Bengal</b></span>
           </div>
           <div class="ccard glass">
-            <span class="cico">◔</span>
+            <span class="cico" data-icon="clock"></span>
             <span class="cbody"><small>Timezone</small><b data-bind="locationUtc">UTC+05:30 IST</b></span>
           </div>
           <div class="ccard glass">
-            <span class="cico">⚡</span>
+            <span class="cico" data-icon="zap"></span>
             <span class="cbody"><small>Response time</small><b data-bind="latency">24–48 Hours</b></span>
           </div>
           <div class="ccard glass">
-            <span class="cico">✦</span>
+            <span class="cico" data-icon="spark"></span>
             <span class="cbody"><small>Status</small><b data-bind="status">AVAILABLE FOR FREELANCE</b></span>
           </div>
         </div>
@@ -209,11 +209,11 @@
       <div class="meta" style="text-align:left;margin-top:8px">Designed &amp; Deployed by <span data-bind="name">Suman Mahata</span></div>
       <div class="accent-dots" id="accentDots" style="margin-top:16px"></div>
     </div>
-    <div class="meta">© <span id="yr2">2026</span> Edition • V3.3.0<br>HTML / CSS / JS / Three.js</div>
+    <div class="meta">© <span id="yr2">2026</span> Edition • V3.4.0<br>HTML / CSS / JS / Three.js</div>
   </div>
 </footer>
 
-<button class="to-top" id="toTop" title="Back to top">↑</button>
+<button class="to-top" id="toTop" title="Back to top"><span class="ico" data-icon="arrow-up"></span></button>
 
 <!-- PROJECT MODAL -->
 <div class="modal" id="modal">
@@ -227,8 +227,8 @@
     <div class="tags" id="mTags"></div>
     <div class="mnote" id="mNoLive" style="display:none">No verified live deployment yet — this project is still in progress.</div>
     <div class="proj-actions" style="margin-top:6px">
-      <a class="btn mag" id="mLive" target="_blank" rel="noopener noreferrer" style="display:none">Live Demo ↗</a>
-      <a class="btn ghost mag" id="mSource" target="_blank" rel="noopener noreferrer" style="display:none">Source Code ↗</a>
+      <a class="btn mag" id="mLive" target="_blank" rel="noopener noreferrer" style="display:none">Live Demo <span class="ico" data-icon="external"></span></a>
+      <a class="btn ghost mag" id="mSource" target="_blank" rel="noopener noreferrer" style="display:none">Source Code <span class="ico" data-icon="code"></span></a>
     </div>
   </div>
 </div>
