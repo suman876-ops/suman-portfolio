@@ -481,6 +481,83 @@ function starfield2D() {
   resize(); frame();
 }
 
+/* ---------- binary rain behind the hero portrait ---------- */
+function initBinaryRain() {
+  const canvas = document.getElementById("binRain");
+  if (!canvas) return;
+  const ctx = canvas.getContext("2d");
+  if (!ctx) return;
+
+  const FS = 13;    // glyph size, CSS px
+  const GAP = 4;    // space between columns
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  let W = 0, H = 0, cols = 0, drops = [], speeds = [];
+
+  const accent = () => getComputedStyle(document.documentElement).getPropertyValue("--cyan").trim() || "#3fe0ff";
+  const glyph = () => (Math.random() < 0.5 ? "0" : "1");
+
+  function resize() {
+    const r = canvas.getBoundingClientRect();
+    if (!r.width || !r.height) return false;
+    W = canvas.width = Math.round(r.width * dpr);
+    H = canvas.height = Math.round(r.height * dpr);
+    cols = Math.max(1, Math.floor(W / ((FS + GAP) * dpr)));
+    drops = []; speeds = [];
+    for (let i = 0; i < cols; i++) {
+      drops.push(Math.random() * H);
+      speeds.push((0.5 + Math.random() * 1.15) * dpr);
+    }
+    return true;
+  }
+
+  function font() {
+    ctx.font = "500 " + (FS * dpr) + "px 'JetBrains Mono', ui-monospace, monospace";
+    ctx.textBaseline = "top";
+  }
+
+  function draw() {
+    // fade the existing glyphs towards transparent so trails glow and die out
+    ctx.globalCompositeOperation = "destination-out";
+    ctx.fillStyle = "rgba(0,0,0,0.075)";
+    ctx.fillRect(0, 0, W, H);
+    ctx.globalCompositeOperation = "source-over";
+
+    font();
+    ctx.fillStyle = accent();
+    for (let i = 0; i < cols; i++) {
+      const x = i * (FS + GAP) * dpr;
+      const y = drops[i];
+      ctx.globalAlpha = 0.95;                 // the bright leading glyph
+      ctx.fillText(glyph(), x, y);
+      ctx.globalAlpha = 0.28;                 // a dimmer one just behind it
+      ctx.fillText(glyph(), x, y - FS * dpr * 1.15);
+
+      drops[i] += speeds[i];
+      if (drops[i] > H + FS * dpr) drops[i] = Math.random() * -H * 0.4;
+    }
+    ctx.globalAlpha = 1;
+    requestAnimationFrame(draw);
+  }
+
+  function staticFrame() {
+    font();
+    ctx.fillStyle = accent();
+    for (let i = 0; i < cols; i++) {
+      for (let y = 0; y < H; y += FS * dpr * 2.6) {
+        ctx.globalAlpha = 0.1 + Math.random() * 0.35;
+        ctx.fillText(glyph(), i * (FS + GAP) * dpr, y);
+      }
+    }
+    ctx.globalAlpha = 1;
+  }
+
+  if (!resize()) { window.addEventListener("load", resize); setTimeout(resize, 400); }
+  window.addEventListener("resize", resize);
+
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) { staticFrame(); return; }
+  draw();
+}
+
 /* ---------- boot ---------- */
 $("#yr2").textContent = new Date().getFullYear();
 renderBindings();
@@ -488,6 +565,7 @@ buildFilters();
 renderProjects();
 type();
 onScroll();
+initBinaryRain();
 
 scene3d = await initScene();
 if (scene3d) applyTheme(DATA.accent);

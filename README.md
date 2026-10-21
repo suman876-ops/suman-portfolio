@@ -27,6 +27,8 @@ The site itself is a static front end, but the repository deliberately spreads a
 - **3D background** with Three.js — a drifting starfield, a wireframe planet with orbiting rings, floating geometry and glow sprites, with mouse and scroll parallax.
 - **Modern UI** — animated preloader, custom cursor, scroll-progress bar, 3D tilt cards, magnetic buttons, animated counters, a marquee strip and a project detail modal.
 - **Glass-pill navigation** with a frosted brand pill and an active-section highlight.
+- **Binary rain** — falling `0`/`1` columns animate behind the hero portrait, which is a
+  cut-out (`images/profile-cutout.webp`) so the code shows through around the subject.
 - **Command palette** — press `Ctrl`/`Cmd` + `K` to navigate, copy the email or cycle themes.
 - **Four accent themes** — Cyan/Violet, Violet/Pink, Emerald/Sky, Amber/Coral (the dots in the footer).
 - **Graceful fallback** — if Three.js can't load, the page drops back to a 2D canvas starfield.
