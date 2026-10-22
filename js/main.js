@@ -2,7 +2,7 @@
  * main.js — UI logic for the portfolio.
  *
  * Content comes from ./data.js, the 3D background from ./scene.js.
- * Everything else (navigation, reveals, tilt, project filters, the GitHub
+ * Everything else (navigation, reveals, tilt, the project grid, the GitHub
  * repository feed, modal, command palette, cursor, preloader) lives here.
  * ==========================================================================*/
 
@@ -130,49 +130,10 @@ function renderBindings() {
 }
 
 /* ============================================================================
- * PROJECTS — search + category / status / tech filters
+ * PROJECTS — the card grid
  * ==========================================================================*/
 
-const filter = { q: "", category: "All", status: "All", tech: "All" };
 let visibleProjects = [];   // the indices currently shown (used by the modal)
-
-function allTech() {
-  const set = new Set();
-  (DATA.projects || []).forEach((p) => (p.tech || []).forEach((t) => set.add(t)));
-  return [...set].sort();
-}
-
-function buildFilters() {
-  const cats = ["All", ...(DATA.categories || [])];
-  $("#pCats").innerHTML = cats.map((c) =>
-    `<button class="fchip ${filter.category === c ? "on" : ""}" data-fcat="${esc(c)}">${esc(c)}</button>`).join("");
-
-  const usedStatuses = [...new Set((DATA.projects || []).map((p) => p.status))];
-  const stats = ["All", ...usedStatuses];
-  $("#pStats").innerHTML = stats.map((s) =>
-    `<button class="fchip ${filter.status === s ? "on" : ""}" data-fstatus="${esc(s)}">${esc(s)}</button>`).join("");
-
-  const techs = ["All", ...allTech()];
-  $("#pTech").innerHTML = techs.map((t) =>
-    `<option value="${esc(t)}" ${filter.tech === t ? "selected" : ""}>${t === "All" ? "All technologies" : esc(t)}</option>`).join("");
-
-  $$("#pCats [data-fcat]").forEach((b) => b.addEventListener("click", () => {
-    filter.category = b.getAttribute("data-fcat"); buildFilters(); renderProjects();
-  }));
-  $$("#pStats [data-fstatus]").forEach((b) => b.addEventListener("click", () => {
-    filter.status = b.getAttribute("data-fstatus"); buildFilters(); renderProjects();
-  }));
-  $("#pTech").addEventListener("change", (e) => { filter.tech = e.target.value; renderProjects(); });
-  $("#pSearch").addEventListener("input", (e) => { filter.q = e.target.value.toLowerCase().trim(); renderProjects(); });
-}
-
-function matches(p) {
-  if (filter.q && !p.title.toLowerCase().includes(filter.q)) return false;
-  if (filter.category !== "All" && p.category !== filter.category) return false;
-  if (filter.status !== "All" && p.status !== filter.status) return false;
-  if (filter.tech !== "All" && !(p.tech || []).includes(filter.tech)) return false;
-  return true;
-}
 
 function projectCard(p, i) {
   const pending = /pending/i.test(p.status);
@@ -208,13 +169,12 @@ function projectCard(p, i) {
 }
 
 function renderProjects() {
-  const list = (DATA.projects || []).map((p, i) => [p, i]).filter(([p]) => matches(p));
-  visibleProjects = list.map(([, i]) => i);
-  $("#pCount").textContent = `${list.length} of ${(DATA.projects || []).length} projects`;
+  const all = DATA.projects || [];
+  visibleProjects = all.map((_, i) => i);
 
-  $("#projectsWrap").innerHTML = list.length
-    ? list.map(([p, i]) => projectCard(p, i)).join("")
-    : `<div class="no-results">No projects match those filters. Try clearing the search or picking “All”.</div>`;
+  $("#projectsWrap").innerHTML = all.length
+    ? all.map((p, i) => projectCard(p, i)).join("")
+    : `<div class="no-results">No projects to show yet.</div>`;
 
   observeReveals();
   bindTilt();
@@ -586,7 +546,6 @@ function initBinaryRain() {
 /* ---------- boot ---------- */
 $("#yr2").textContent = new Date().getFullYear();
 renderBindings();
-buildFilters();
 renderProjects();
 type();
 onScroll();

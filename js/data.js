@@ -102,7 +102,7 @@ export const DATA = {
     { name: "Git & GitHub", level: 85, code: "SYS_DEV" }
   ],
 
-  /* Allowed vocabularies — used to build the filter controls. */
+  /* Allowed vocabularies for projects (kept for reference and future use). */
   categories: [
     "Web Applications",
     "Student Productivity",
@@ -152,7 +152,7 @@ export const DATA = {
       category: "Personal Projects",
       status: "Live",
       desc: "A modern personal website introducing Suman Mahata, displaying skills, projects, social profiles, GitHub repositories and freelance availability.",
-      longDesc: "This site — a dark, space-themed portfolio with a Three.js 3D background, animated reveals, project filtering, a command palette and a live GitHub repository feed. The source is split by language: HTML markup, a CSS design system, ES modules for content/UI/3D, plus Node.js and Python dev servers.",
+      longDesc: "This site — a dark, space-themed portfolio with a Three.js 3D background, animated reveals, a command palette and a live GitHub repository feed. The source is split by language: HTML markup, a CSS design system, ES modules for content/UI/3D, plus Node.js and Python dev servers.",
       tech: ["HTML", "CSS", "JavaScript", "Three.js"],
       techVerified: true,
       live: "https://suman876-ops.github.io/suman-portfolio/",

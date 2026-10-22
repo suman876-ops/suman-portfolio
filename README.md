@@ -44,7 +44,7 @@ All eight projects appear in the Projects section, and every card carries three 
 - **Source Code** — opens the public repository. Where none is published, it shows *Source Code Not Publicly Available*.
 - **View Details** — opens a modal with the full description and the same links.
 
-Cards can be searched by name and filtered by category, status and technology.
+Every project is shown as a card with Live Demo, Source Code and View Details actions.
 
 ## Design
 
