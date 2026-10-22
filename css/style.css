@@ -191,6 +191,8 @@ section.blk{padding:110px 0;position:relative;border-top:1px solid var(--line)}
 .proj .tags{display:flex;flex-wrap:wrap;gap:8px}
 .proj .tags span{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;color:var(--cyan);border:1px solid var(--line2);border-radius:6px;padding:5px 10px;background:color-mix(in srgb,var(--cyan) 6%,transparent)}
 .proj .idx{position:absolute;right:20px;bottom:8px;font-family:var(--disp);font-weight:900;font-size:64px;color:rgba(120,160,220,.07);pointer-events:none}
+.proj .pimg{margin:16px 0 2px;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#0b0f1e}
+.proj .pimg img{display:block;width:100%;height:auto;aspect-ratio:1200/630;object-fit:cover}
 .proj .more{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--cyan);margin-top:16px;display:inline-flex;gap:8px;align-items:center}
 
 /* contact */

@@ -174,22 +174,24 @@ export const DATA = {
       category: "AI and Machine Learning",
       status: "Concept",
       desc: "A hackathon concept applying AI to waste management, waste classification and smarter waste-handling workflows.",
-      longDesc: "A hackathon concept exploring how AI can improve waste management — automatic waste classification and smarter waste-handling workflows. Still at the idea stage; no deployment or public repository exists yet.",
-      tech: [],
+      longDesc: "A hackathon concept exploring how AI can improve waste management — automatic waste classification and smarter waste-handling workflows. Still at the idea stage: the concept landing page is live, but there is no working prototype yet.",
+      tech: ["Computer Vision", "Python"],
       techVerified: false,
-      live: "",
-      github: ""
+      image: "images/projects/smartwaste-ai.png",
+      live: "https://suman876-ops.github.io/smartwaste-ai/",
+      github: "https://github.com/suman876-ops/smartwaste-ai"
     },
     {
       title: "AI Legal Metrology Product Scanner",
       category: "AI and Machine Learning",
       status: "Concept",
       desc: "A project concept for scanning product labels and helping validate packaged-product information using image processing or OCR.",
-      longDesc: "A concept for scanning product labels and helping validate packaged-product information — the kind of data covered by legal metrology rules — using image processing or OCR. Still at the idea stage; no deployment or public repository exists yet.",
-      tech: [],
+      longDesc: "A concept for scanning product labels and helping validate packaged-product information — the kind of data covered by legal metrology rules — using image processing or OCR. Still at the idea stage: the concept landing page is live, but there is no working prototype yet.",
+      tech: ["OCR", "Python"],
       techVerified: false,
-      live: "",
-      github: ""
+      image: "images/projects/ai-legal-metrology-scanner.png",
+      live: "https://suman876-ops.github.io/ai-legal-metrology-scanner/",
+      github: "https://github.com/suman876-ops/ai-legal-metrology-scanner"
     },
     {
       title: "Personal Record Hub",

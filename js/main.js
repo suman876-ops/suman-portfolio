@@ -218,6 +218,7 @@ function projectCard(p, i) {
         <span>System_View_${String(i + 1).padStart(2, "0")}</span>
         <span class="st ${pending ? "pend" : ""}">${esc(p.status)}</span>
       </div>
+      ${p.image ? `<div class="pimg"><img src="${esc(p.image)}" alt="${esc(p.title)} — concept artwork" loading="lazy" width="1200" height="630"></div>` : ""}
       <h3>${esc(p.title)}</h3>
       <div class="cat">${esc(p.category)}</div>
       <p>${esc(p.desc)}</p>
