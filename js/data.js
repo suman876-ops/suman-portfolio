@@ -152,7 +152,7 @@ export const DATA = {
       category: "Personal Projects",
       status: "Live",
       desc: "A modern personal website introducing Suman Mahata, displaying skills, projects, social profiles, GitHub repositories and freelance availability.",
-      longDesc: "This site — a dark, space-themed portfolio with a Three.js 3D background, animated reveals, a command palette and a live GitHub repository feed. The source is split by language: HTML markup, a CSS design system, ES modules for content/UI/3D, plus Node.js and Python dev servers.",
+      longDesc: "This site — a dark, space-themed portfolio with a Three.js 3D background, animated reveals, a command palette and a project showcase. The source is split by language: HTML markup, a CSS design system, ES modules for content/UI/3D, plus Node.js and Python dev servers.",
       tech: ["HTML", "CSS", "JavaScript", "Three.js"],
       techVerified: true,
       live: "https://suman876-ops.github.io/suman-portfolio/",
