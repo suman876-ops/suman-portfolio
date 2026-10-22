@@ -25,7 +25,7 @@ The site itself is a static front end, but the repository deliberately spreads a
 ## Features
 
 - **3D background** with Three.js — a drifting starfield, a wireframe planet with orbiting rings, floating geometry and glow sprites, with mouse and scroll parallax.
-- **Modern UI** — animated preloader, custom cursor, scroll-progress bar, 3D tilt cards, magnetic buttons, animated counters, a marquee strip and a project detail modal.
+- **Modern UI** — animated preloader, custom cursor, scroll-progress bar, 3D tilt cards, magnetic buttons, animated counters, a marquee strip, a scrolling technology marquee in the Skills section (pausable, and reduced-motion aware) and a project detail modal.
 - **Glass-pill navigation** with a frosted brand pill and an active-section highlight.
 - **One consistent icon set** — a single 24×24 stroke-icon system (mail, location, clock,
   bolt, spark, arrows, external-link, code, eye, search, refresh, hash) drawn in

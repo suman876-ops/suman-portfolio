@@ -61,6 +61,26 @@ function applyTheme(name) {
 }
 
 /* ---------- generic bindings ---------- */
+/* ---------- skills marquee ---------- */
+function renderSkillsMarquee() {
+  const names = (DATA.skills || []).map((s) => s.name).filter(Boolean);
+  const host = $("#skillsWrap");
+  if (!host || !names.length) return;
+
+  const pills = names
+    .map((n) => `<span class="mchip"><span class="ico">${ICONS.hash}</span>${esc(n)}</span>`)
+    .join("");
+  const unit = pills + pills;                 // one loop unit — wide enough for any screen
+  const track = `<div class="sktrack">${unit}${unit}</div>`;
+
+  host.innerHTML =
+    `<div class="skmarq" id="skillsMarquee" aria-hidden="true">` +
+      `<div class="skrow">${track}</div>` +
+      `<div class="skrow rev">${track}</div>` +
+    `</div>` +
+    `<ul class="sr-only">${names.map((n) => `<li>${esc(n)}</li>`).join("")}</ul>`;
+}
+
 function renderBindings() {
   $$("[data-bind]").forEach((el) => {
     const k = el.getAttribute("data-bind");
@@ -98,14 +118,7 @@ function renderBindings() {
       <div class="chips">${(it.tags || []).map((t) => `<span class="chip"><span class="ico">${ICONS.hash}</span>${esc(t)}</span>`).join("")}</div>
     </div>`).join("");
 
-  $("#skillsWrap").innerHTML = (DATA.skills || []).map((s) => `
-    <div class="skill reveal">
-      <div class="row">
-        <span class="nm"><i>${esc(s.code || "SYS")}</i>${esc(s.name)}</span>
-        <span class="pc">${esc(s.level)}%</span>
-      </div>
-      <div class="pbar"><span data-lvl="${esc(s.level)}" style="width:${esc(s.level)}%"></span></div>
-    </div>`).join("");
+  renderSkillsMarquee();
 
   const socials = [["GitHub", DATA.github], ["LinkedIn", DATA.linkedin], ["Twitter", DATA.twitter]]
     .filter((s) => s[1]);
@@ -124,7 +137,6 @@ function renderBindings() {
   applyTheme(DATA.accent);
 
   /* these elements were just (re)created above, so (re)wire their behaviour */
-  initBars();
   initCounters();
   bindMagnetic();
 }
@@ -246,21 +258,6 @@ function observeReveals() {
   $$(".reveal").forEach((el) => io.observe(el));
 }
 
-function initBars() {
-  // the widths are already rendered, so the bars look right even if the
-  // observer never fires — we only animate when one scrolls into view
-  if (typeof IntersectionObserver !== "function") return;
-  const bo = new IntersectionObserver((entries) => entries.forEach((e) => {
-    if (!e.isIntersecting) return;
-    const el = e.target;
-    bo.unobserve(el);
-    const lvl = el.getAttribute("data-lvl");
-    el.style.width = "0";
-    requestAnimationFrame(() => { el.style.width = lvl + "%"; });
-  }), { threshold: 0.35 });
-  $$(".pbar span").forEach((el) => bo.observe(el));
-}
-
 function initCounters() {
   // the final numbers are already rendered, so they stay correct even if the
   // observer never fires — we only play the count-up when a stat scrolls in
@@ -311,10 +308,11 @@ function bindMagnetic() {
 }
 
 $("#scanBtn").addEventListener("click", () => {
-  $$(".pbar span").forEach((el, i) => setTimeout(() => {
-    el.style.width = "0";
-    requestAnimationFrame(() => { el.style.width = el.getAttribute("data-lvl") + "%"; });
-  }, i * 80));
+  const m = $("#skillsMarquee");
+  if (!m) return;
+  const paused = m.classList.toggle("paused");
+  $("#scanBtn").innerHTML = '<span class="ico">' + ICONS.refresh + "</span> " +
+    (paused ? "RESUME SCAN" : "PAUSE SCAN");
 });
 
 /* ---------- nav + scroll progress ---------- */

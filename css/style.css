@@ -438,3 +438,41 @@ a.pact.src:hover{background:var(--mag);color:#0b0416;box-shadow:0 0 24px color-m
 .searchwrap{position:relative}
 .searchwrap .ico{position:absolute;left:15px;top:50%;transform:translateY(-50%);width:16px;height:16px;color:var(--muted2);pointer-events:none}
 .filters .searchwrap input[type=search]{padding-left:44px}
+
+
+/* ============================================================================
+   SKILLS MARQUEE — scrolling technology names (v3.5)
+   ==========================================================================*/
+.skills-grid{display:block;margin:34px 0 0}
+.skmarq{
+  display:grid;gap:14px;overflow:hidden;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);
+          mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);
+}
+.skrow{overflow:hidden}
+.sktrack{
+  display:flex;gap:14px;width:max-content;
+  animation:mscroll 42s linear infinite;
+  will-change:transform;
+}
+.skrow.rev .sktrack{animation-direction:reverse;animation-duration:52s}
+.skmarq:hover .sktrack,.skmarq.paused .sktrack{animation-play-state:paused}
+.mchip{
+  display:inline-flex;align-items:center;gap:9px;white-space:nowrap;
+  font-family:var(--mono);font-size:13.5px;letter-spacing:.05em;color:var(--txt);
+  padding:11px 18px;border-radius:999px;
+  border:1px solid var(--line);background:var(--glass-bg);
+  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+  transition:border-color .3s,color .3s;
+}
+.mchip .ico{width:12px;height:12px;color:var(--cyan);opacity:.75}
+.mchip:hover{border-color:var(--line2);color:#fff}
+@keyframes mscroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){
+  .sktrack{animation:none}
+  .skrow{overflow-x:auto}
+}
+.sr-only{
+  position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
+  clip:rect(0 0 0 0);white-space:nowrap;border:0;
+}
