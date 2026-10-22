@@ -18,7 +18,7 @@ The site itself is a static front end, but the repository deliberately spreads a
 | | `js/main.js` | UI logic — navigation, reveals, tilt, modal, command palette, cursor |
 | | `js/scene.js` | The Three.js 3D background |
 | | `js/brands.js` | Official technology marks used by the Skills cards |
-| **Assets** | `favicon.svg` | Site icon — the gradient monogram |
+| **Assets** | `favicon.svg` | Site icon — a neon `S` monogram on a dark disc, drawn as a single vector stroke |
 | | `favicon-32.png`, `apple-touch-icon.png` | Raster icon fallbacks for older browsers and iOS |
 | | `images/profile-cutout.webp` | Hero portrait with the studio background removed |
 | **Node.js** | `server/server.js` | Zero-dependency local dev server |
