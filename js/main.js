@@ -8,6 +8,7 @@
 
 import { DATA, THEMES } from "./data.js";
 import { initScene } from "./scene.js";
+import { BRANDS } from "./brands.js";
 
 const $ = (s) => document.querySelector(s);
 const $$ = (s) => [...document.querySelectorAll(s)];
@@ -61,24 +62,74 @@ function applyTheme(name) {
 }
 
 /* ---------- generic bindings ---------- */
-/* ---------- skills marquee ---------- */
-function renderSkillsMarquee() {
-  const names = (DATA.skills || []).map((s) => s.name).filter(Boolean);
+/* ---------- skills cards ---------- */
+const SKILL_BRAND = {
+  "HTML & CSS": "html5", "JavaScript": "javascript", "React": "react",
+  "Next.js": "nextdotjs", "Node.js": "nodedotjs", "Express": "express",
+  "MongoDB": "mongodb", "PostgreSQL": "postgresql", "Tailwind CSS": "tailwindcss",
+  "Git & GitHub": "github"
+};
+
+/* the bar is tinted by the skill's family, not by the brand */
+const SKILL_TINT = {
+  SYS_UI: "var(--cyan)", SYS_FRO: "var(--cyan)", SYS_JS: "var(--cyan)",
+  SYS_BAC: "var(--mag)", SYS_DB: "var(--mag)",
+  SYS_DEV: "var(--lime)", SYS_DES: "var(--pink)"
+};
+
+/* a near-black brand colour would disappear on the dark card */
+function readableBrand(hex) {
+  const h = String(hex).replace("#", "");
+  const r = parseInt(h.slice(0, 2), 16), g = parseInt(h.slice(2, 4), 16), b = parseInt(h.slice(4, 6), 16);
+  return (0.2126 * r + 0.7152 * g + 0.0722 * b) < 70 ? "currentColor" : hex;
+}
+
+function renderSkillsCards() {
+  const list = DATA.skills || [];
   const host = $("#skillsWrap");
-  if (!host || !names.length) return;
+  if (!host) return;
 
-  const pills = names
-    .map((n) => `<span class="mchip"><span class="ico">${ICONS.hash}</span>${esc(n)}</span>`)
-    .join("");
-  const unit = pills + pills;                 // one loop unit — wide enough for any screen
-  const track = `<div class="sktrack">${unit}${unit}</div>`;
+  host.innerHTML = list.map((s) => {
+    const brand = BRANDS[SKILL_BRAND[s.name]];
+    const mark = brand
+      ? `<svg viewBox="0 0 24 24" aria-hidden="true" style="color:${readableBrand(brand.hex)}">${brand.svg}</svg>`
+      : "";
+    const lvl = clamp(Number(s.level) || 0, 0, 100);
+    return `
+      <article class="skcard reveal" style="--tint:${SKILL_TINT[s.code] || "var(--cyan)"}">
+        <div class="skhead">
+          <span class="skico">${mark}</span>
+          <span class="skcode">${esc(s.code || "SYS")}</span>
+        </div>
+        <h3 class="skname">${esc(s.name)}</h3>
+        <div class="skmeta"><span>Proficiency</span><b>${lvl}%</b></div>
+        <div class="skbar" data-lvl="${lvl}"><i></i></div>
+      </article>`;
+  }).join("");
 
-  host.innerHTML =
-    `<div class="skmarq" id="skillsMarquee" aria-hidden="true">` +
-      `<div class="skrow">${track}</div>` +
-      `<div class="skrow rev">${track}</div>` +
-    `</div>` +
-    `<ul class="sr-only">${names.map((n) => `<li>${esc(n)}</li>`).join("")}</ul>`;
+  initSkillBars();
+}
+
+function initSkillBars() {
+  const bars = $$(".skbar");
+  // widths are set up front so the cards read correctly even if nothing animates
+  bars.forEach((el) => {
+    const i = el.querySelector("i");
+    if (i) i.style.width = (el.getAttribute("data-lvl") || 0) + "%";
+  });
+  if (typeof IntersectionObserver !== "function") return;
+
+  const io = new IntersectionObserver((entries) => entries.forEach((e) => {
+    if (!e.isIntersecting) return;
+    io.unobserve(e.target);
+    const i = e.target.querySelector("i");
+    if (!i) return;
+    const lvl = e.target.getAttribute("data-lvl") || "0";
+    i.style.transition = "none";
+    i.style.width = "0";
+    requestAnimationFrame(() => { i.style.transition = ""; i.style.width = lvl + "%"; });
+  }), { threshold: 0.4 });
+  bars.forEach((el) => io.observe(el));
 }
 
 function renderBindings() {
@@ -118,7 +169,7 @@ function renderBindings() {
       <div class="chips">${(it.tags || []).map((t) => `<span class="chip"><span class="ico">${ICONS.hash}</span>${esc(t)}</span>`).join("")}</div>
     </div>`).join("");
 
-  renderSkillsMarquee();
+  renderSkillsCards();
 
   const socials = [["GitHub", DATA.github], ["LinkedIn", DATA.linkedin], ["Twitter", DATA.twitter]]
     .filter((s) => s[1]);
@@ -308,11 +359,14 @@ function bindMagnetic() {
 }
 
 $("#scanBtn").addEventListener("click", () => {
-  const m = $("#skillsMarquee");
-  if (!m) return;
-  const paused = m.classList.toggle("paused");
-  $("#scanBtn").innerHTML = '<span class="ico">' + ICONS.refresh + "</span> " +
-    (paused ? "RESUME SCAN" : "PAUSE SCAN");
+  $$(".skbar").forEach((el, n) => setTimeout(() => {
+    const i = el.querySelector("i");
+    if (!i) return;
+    const lvl = el.getAttribute("data-lvl") || "0";
+    i.style.transition = "none";
+    i.style.width = "0";
+    requestAnimationFrame(() => { i.style.transition = ""; i.style.width = lvl + "%"; });
+  }, n * 70));
 });
 
 /* ---------- nav + scroll progress ---------- */

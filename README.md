@@ -17,6 +17,7 @@ The site itself is a static front end, but the repository deliberately spreads a
 | **JavaScript** | `js/data.js` | All site content (one plain object) |
 | | `js/main.js` | UI logic — navigation, reveals, tilt, modal, command palette, cursor |
 | | `js/scene.js` | The Three.js 3D background |
+| | `js/brands.js` | Official technology marks used by the Skills cards |
 | **Node.js** | `server/server.js` | Zero-dependency local dev server |
 | **Python** | `server/app.py` | The same dev server, in the standard library |
 | **Bash** | `deploy.sh` | One-command commit + push |
@@ -25,7 +26,7 @@ The site itself is a static front end, but the repository deliberately spreads a
 ## Features
 
 - **3D background** with Three.js — a drifting starfield, a wireframe planet with orbiting rings, floating geometry and glow sprites, with mouse and scroll parallax.
-- **Modern UI** — animated preloader, custom cursor, scroll-progress bar, 3D tilt cards, magnetic buttons, animated counters, a marquee strip, a scrolling technology marquee in the Skills section (pausable, and reduced-motion aware) and a project detail modal.
+- **Modern UI** — animated preloader, custom cursor, scroll-progress bar, 3D tilt cards, magnetic buttons, animated counters, a marquee strip, a skill-card grid with official brand marks and category-tinted segmented proficiency bars, and a project detail modal.
 - **Glass-pill navigation** with a frosted brand pill and an active-section highlight.
 - **One consistent icon set** — a single 24×24 stroke-icon system (mail, location, clock,
   bolt, spark, arrows, external-link, code, eye, search, refresh, hash) drawn in

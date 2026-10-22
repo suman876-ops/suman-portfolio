@@ -441,38 +441,50 @@ a.pact.src:hover{background:var(--mag);color:#0b0416;box-shadow:0 0 24px color-m
 
 
 /* ============================================================================
-   SKILLS MARQUEE — scrolling technology names (v3.5)
+   SKILLS CARDS — icon, name and a segmented proficiency bar (v3.6)
    ==========================================================================*/
-.skills-grid{display:block;margin:34px 0 0}
-.skmarq{
-  display:grid;gap:14px;overflow:hidden;
-  -webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);
-          mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);
-}
-.skrow{overflow:hidden}
-.sktrack{
-  display:flex;gap:14px;width:max-content;
-  animation:mscroll 42s linear infinite;
-  will-change:transform;
-}
-.skrow.rev .sktrack{animation-direction:reverse;animation-duration:52s}
-.skmarq:hover .sktrack,.skmarq.paused .sktrack{animation-play-state:paused}
-.mchip{
-  display:inline-flex;align-items:center;gap:9px;white-space:nowrap;
-  font-family:var(--mono);font-size:13.5px;letter-spacing:.05em;color:var(--txt);
-  padding:11px 18px;border-radius:999px;
+.skills-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin:38px 0 0}
+
+.skcard{
+  position:relative;padding:22px 22px 24px;border-radius:16px;overflow:hidden;
   border:1px solid var(--line);background:var(--glass-bg);
-  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
-  transition:border-color .3s,color .3s;
+  -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
+  transition:transform .4s cubic-bezier(.2,.8,.25,1),border-color .4s,box-shadow .4s;
 }
-.mchip .ico{width:12px;height:12px;color:var(--cyan);opacity:.75}
-.mchip:hover{border-color:var(--line2);color:#fff}
-@keyframes mscroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-@media (prefers-reduced-motion:reduce){
-  .sktrack{animation:none}
-  .skrow{overflow-x:auto}
+.skcard:hover{transform:translateY(-4px);border-color:var(--line2);box-shadow:0 20px 46px rgba(0,0,0,.45)}
+/* the site's corner-bracket motif */
+.skcard::before,.skcard::after{content:"";position:absolute;width:13px;height:13px;
+  border:1px solid color-mix(in srgb,var(--tint) 55%,transparent);opacity:.85;transition:opacity .4s}
+.skcard::before{top:9px;left:9px;border-right:0;border-bottom:0}
+.skcard::after{bottom:9px;right:9px;border-left:0;border-top:0}
+.skcard:hover::before,.skcard:hover::after{opacity:1}
+
+.skhead{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:18px}
+.skico{
+  display:grid;place-items:center;width:46px;height:46px;border-radius:13px;flex:0 0 auto;
+  background:color-mix(in srgb,var(--tint) 12%,rgba(255,255,255,.03));
+  border:1px solid color-mix(in srgb,var(--tint) 26%,transparent);
 }
-.sr-only{
-  position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
-  clip:rect(0 0 0 0);white-space:nowrap;border:0;
+.skico svg{width:23px;height:23px;display:block}
+.skcode{font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;color:var(--muted2);padding-top:4px}
+
+.skname{font-family:var(--disp);font-size:19px;font-weight:700;letter-spacing:.01em;margin:0 0 16px;color:var(--txt)}
+
+.skmeta{display:flex;align-items:baseline;justify-content:space-between;
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--muted2);margin-bottom:9px}
+.skmeta b{font-size:13px;letter-spacing:.04em;color:var(--txt)}
+
+.skbar{height:9px;border-radius:2px;background:rgba(255,255,255,.055);overflow:hidden}
+.skbar i{
+  display:block;height:100%;width:0;
+  background-image:repeating-linear-gradient(90deg,
+    var(--tint) 0 11px, rgba(4,6,13,.85) 11px 14px);
+  transition:width 1.15s cubic-bezier(.2,.85,.25,1);
+}
+
+@media (max-width:760px){
+  .skills-grid{grid-template-columns:1fr;gap:14px}
+  .skcard{padding:18px 18px 20px}
+  .skname{font-size:17px}
 }
