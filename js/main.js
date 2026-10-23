@@ -213,8 +213,13 @@ function projectCard(p, i) {
     ? `<a class="pact src" href="${esc(p.github)}" target="_blank" rel="noopener noreferrer" aria-label="Open the source code of ${esc(p.title)} on GitHub">Source Code <span class="ico">${ICONS.code}</span></a>`
     : `<span class="pact off" aria-disabled="true" title="No public repository verified for this project">Source Code Not Publicly Available</span>`;
 
+  const shot = p.image
+    ? `<figure class="pshot"><img src="${esc(p.image)}" alt="Preview of ${esc(p.title)}" loading="lazy" decoding="async"></figure>`
+    : "";
+
   return `
     <article class="proj tilt reveal" data-tilt="7" data-p="${i}">
+      ${shot}
       <div class="ph">
         <span>System_View_${String(i + 1).padStart(2, "0")}</span>
         <span class="st ${pending ? "pend" : ""}">${esc(p.status)}</span>
@@ -231,6 +236,14 @@ function projectCard(p, i) {
       <span class="idx">${String(i + 1).padStart(2, "0")}</span>
     </article>`;
 }
+
+/* a broken preview should disappear, not show a broken-image icon */
+$("#projectsWrap").addEventListener("error", (e) => {
+  if (e.target && e.target.tagName === "IMG") {
+    const fig = e.target.closest("figure");
+    if (fig) fig.style.display = "none";
+  }
+}, true);
 
 function renderProjects() {
   const all = DATA.projects || [];
@@ -261,6 +274,18 @@ function openProject(i) {
     ? (p.tech || []).map((t) => `<span class="${p.techVerified ? "" : "unconfirmed"}">${esc(t)}</span>`).join("")
     : `<span class="unconfirmed">Stack to be confirmed</span>`;
   $("#mTags").innerHTML = tech;
+
+  const shot = $("#mShot"), shotImg = $("#mShotImg");
+  if (shot && shotImg) {
+    if (p.image) {
+      shotImg.src = p.image;
+      shotImg.alt = "Preview of " + (p.title || "");
+      shot.hidden = false;
+    } else {
+      shotImg.removeAttribute("src");
+      shot.hidden = true;
+    }
+  }
 
   const live = $("#mLive"), src = $("#mSource");
   if (p.live) { live.style.display = "inline-flex"; live.href = p.live; } else live.style.display = "none";
