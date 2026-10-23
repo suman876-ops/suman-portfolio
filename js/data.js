@@ -121,7 +121,6 @@ export const DATA = {
       longDesc: "SMX is a personal college operating system: a single workspace for Study Hub, Notes, Assignments, Mock Tests, a Skills Tracker, Calendar, Document Management and other personal academic tools. A live deployment is available and reachable — the build is still in active development.",
       tech: ["React", "Vite", "Supabase", "TanStack Router"],
       techVerified: true,
-      image: "images/projects/smx.png",
       live: "https://private-record-hub.lovable.app/app",
       github: ""
     },
@@ -133,7 +132,6 @@ export const DATA = {
       longDesc: "Smart Bhumi is a land-records platform built around digitising, validating and verifying land information. It combines land information, GIS mapping, AI/OCR-assisted document processing and data validation. Built as a hackathon project and still evolving; a live prototype is deployed.",
       tech: [],
       techVerified: false,
-      image: "images/projects/smart-bhumi.png",
       live: "https://smart-bhumi.ai.studio",
       github: ""
     },
@@ -145,7 +143,6 @@ export const DATA = {
       longDesc: "Apna Mess is a private, mobile-friendly PWA built for two roommates. It handles electricity bills, meal tracking, shared expenses, payments, personal wallets and activity logs, with offline synchronisation so it keeps working without a connection. A live deployment is available; the feature set is still growing.",
       tech: ["React", "Supabase", "PWA"],
       techVerified: false,
-      image: "images/projects/apna-mess.png",
       techNote: "planned stack — not yet confirmed against the build",
       live: "https://dwelling-duo-fin.lovable.app",
       github: ""
@@ -155,10 +152,9 @@ export const DATA = {
       category: "Personal Projects",
       status: "Live",
       desc: "A modern personal website introducing Suman Mahata, displaying skills, projects, social profiles, GitHub repositories and freelance availability.",
-      longDesc: "This site — a dark, space-themed portfolio with a Three.js 3D background, animated reveals, a command palette and a project showcase. The source is split by language: HTML markup, a CSS design system, ES modules for content/UI/3D, plus Node.js and Python dev servers.",
+      longDesc: "This site — a dark, space-themed portfolio with a Three.js 3D background, animated reveals, a command palette and a live GitHub repository feed. The source is split by language: HTML markup, a CSS design system, ES modules for content/UI/3D, plus Node.js and Python dev servers.",
       tech: ["HTML", "CSS", "JavaScript", "Three.js"],
       techVerified: true,
-      image: "images/projects/portfolio.png",
       live: "https://suman876-ops.github.io/suman-portfolio/",
       github: "https://github.com/suman876-ops/suman-portfolio"
     },
@@ -170,7 +166,6 @@ export const DATA = {
       longDesc: "A concept for a reusable portfolio platform: project galleries, resume presentation, blog content, contact functionality and optional analytics. No deployment or public repository exists yet.",
       tech: [],
       techVerified: false,
-      image: "images/projects/portfolio-platform.png",
       live: "",
       github: ""
     },
@@ -179,24 +174,22 @@ export const DATA = {
       category: "AI and Machine Learning",
       status: "Concept",
       desc: "A hackathon concept applying AI to waste management, waste classification and smarter waste-handling workflows.",
-      longDesc: "A hackathon concept exploring how AI can improve waste management — automatic waste classification and smarter waste-handling workflows. Still at the idea stage: the concept landing page is live, but there is no working prototype yet.",
-      tech: ["Computer Vision", "Python"],
+      longDesc: "A hackathon concept exploring how AI can improve waste management — automatic waste classification and smarter waste-handling workflows. Still at the idea stage; no deployment or public repository exists yet.",
+      tech: [],
       techVerified: false,
-      image: "images/projects/smartwaste-ai.png",
-      live: "https://suman876-ops.github.io/smartwaste-ai/",
-      github: "https://github.com/suman876-ops/smartwaste-ai"
+      live: "",
+      github: ""
     },
     {
       title: "AI Legal Metrology Product Scanner",
       category: "AI and Machine Learning",
       status: "Concept",
       desc: "A project concept for scanning product labels and helping validate packaged-product information using image processing or OCR.",
-      longDesc: "A concept for scanning product labels and helping validate packaged-product information — the kind of data covered by legal metrology rules — using image processing or OCR. Still at the idea stage: the concept landing page is live, but there is no working prototype yet.",
-      tech: ["OCR", "Python"],
+      longDesc: "A concept for scanning product labels and helping validate packaged-product information — the kind of data covered by legal metrology rules — using image processing or OCR. Still at the idea stage; no deployment or public repository exists yet.",
+      tech: [],
       techVerified: false,
-      image: "images/projects/ai-legal-metrology-scanner.png",
-      live: "https://suman876-ops.github.io/ai-legal-metrology-scanner/",
-      github: "https://github.com/suman876-ops/ai-legal-metrology-scanner"
+      live: "",
+      github: ""
     },
     {
       title: "Personal Record Hub",
@@ -206,7 +199,6 @@ export const DATA = {
       longDesc: "A concept for a personal records and document management application: private records, document storage and user data management. Its development status still needs to be confirmed, and no separate public repository has been verified.",
       tech: [],
       techVerified: false,
-      image: "images/projects/personal-record-hub.png",
       live: "",
       github: ""
     }

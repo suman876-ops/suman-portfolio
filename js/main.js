@@ -160,7 +160,8 @@ function renderBindings() {
   const items = (DATA.marquee || []).map((m) => `<span class="it">${esc(m)}</span>`).join("");
   $("#marquee").innerHTML = items + items; // duplicated for a seamless loop
 
-  $("#timeline").innerHTML = (DATA.timeline || []).map((it) => `
+  $("#timeline").innerHTML = '<span class="tl-line" aria-hidden="true"><i></i></span>' +
+    (DATA.timeline || []).map((it) => `
     <div class="item reveal">
       <div class="top"><span class="yr">${esc(it.year)}</span><span class="tag">${esc(it.tag)}</span></div>
       <h3>${esc(it.role)}</h3>
@@ -218,7 +219,6 @@ function projectCard(p, i) {
         <span>System_View_${String(i + 1).padStart(2, "0")}</span>
         <span class="st ${pending ? "pend" : ""}">${esc(p.status)}</span>
       </div>
-      ${p.image ? `<div class="pimg"><img src="${esc(p.image)}" alt="${esc(p.title)} — concept artwork" loading="lazy" width="1200" height="630"></div>` : ""}
       <h3>${esc(p.title)}</h3>
       <div class="cat">${esc(p.category)}</div>
       <p>${esc(p.desc)}</p>
@@ -372,6 +372,34 @@ $("#scanBtn").addEventListener("click", () => {
 
 /* ---------- nav + scroll progress ---------- */
 const nav = $("#nav");
+/* ---------- education timeline: the line draws itself as you scroll ---------- */
+function updateTimeline() {
+  const tl = $("#timeline");
+  if (!tl) return;
+  const fill = tl.querySelector(".tl-line i");
+  if (!fill) return;
+  const items = [...tl.querySelectorAll(".item")];
+
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    fill.style.height = "100%";
+    items.forEach((el) => el.classList.add("on"));
+    return;
+  }
+
+  const r = tl.getBoundingClientRect();
+  const vh = window.innerHeight || 800;
+  const start = vh * 0.86;   // the draw begins here (viewport-relative)
+  const end = vh * 0.34;     // and finishes here
+  const span = start - end;
+  const p = clamp((start - r.top) / (r.height + span), 0, 1);
+
+  fill.style.height = (p * 100).toFixed(2) + "%";
+
+  // a node lights up once the tip of the line has passed it
+  const tip = r.top + p * r.height;
+  items.forEach((el) => el.classList.toggle("on", el.getBoundingClientRect().top + 13 <= tip));
+}
+
 function onScroll() {
   const y = window.scrollY;
   nav.classList.toggle("scrolled", y > 30);
@@ -381,6 +409,7 @@ function onScroll() {
   let cur = "";
   for (const s of $$("section[id]")) if (y >= s.offsetTop - 140) cur = s.id;
   $$(".nav-links a").forEach((a) => a.classList.toggle("active", a.getAttribute("href") === "#" + cur));
+  updateTimeline();
   if (scene3d) scene3d.onScroll(y);
 }
 window.addEventListener("scroll", onScroll, { passive: true });
