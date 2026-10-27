@@ -177,15 +177,6 @@ function renderBindings() {
   $("#socials").innerHTML = socials
     .map(([n, u]) => `<a href="${esc(u)}" target="_blank" rel="noopener" aria-label="${esc(n)}">${SOCIAL_ICONS[n] || ""}<span>${esc(n)}</span></a>`).join("");
 
-  $("#accentDots").innerHTML = Object.keys(THEMES).map((k) => `
-    <button data-accent="${k}" title="${k}" class="${k === DATA.accent ? "on" : ""}"
-      style="background:linear-gradient(135deg,${THEMES[k].cyan},${THEMES[k].mag})"></button>`).join("");
-  $$("#accentDots button").forEach((b) => b.addEventListener("click", () => {
-    DATA.accent = b.getAttribute("data-accent");
-    applyTheme(DATA.accent);
-    renderBindings();
-  }));
-
   applyTheme(DATA.accent);
 
   /* these elements were just (re)created above, so (re)wire their behaviour */

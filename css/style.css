@@ -227,10 +227,6 @@ footer{border-top:1px solid var(--line);padding:44px 0 40px}
 .socials{display:flex;gap:12px;flex-wrap:wrap}
 .socials a{font-family:var(--mono);font-size:11.5px;color:var(--muted);border:1px solid var(--line);padding:8px 13px;border-radius:8px;transition:.25s}
 .socials a:hover{color:var(--cyan);border-color:var(--line2)}
-.accent-dots{display:flex;gap:9px;align-items:center}
-.accent-dots button{width:20px;height:20px;border-radius:50%;border:2px solid transparent;cursor:pointer;padding:0;transition:.2s}
-.accent-dots button:hover{transform:scale(1.15)}
-.accent-dots button.on{border-color:#fff}
 
 /* to top */
 .to-top{position:fixed;left:20px;bottom:20px;z-index:80;width:46px;height:46px;border-radius:12px;border:1px solid var(--line2);background:rgba(10,15,28,.85);color:var(--cyan);cursor:pointer;display:grid;place-items:center;opacity:0;pointer-events:none;transition:.3s;backdrop-filter:blur(10px)}
