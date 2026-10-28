@@ -1,114 +1,46 @@
 # Suman Mahata — Portfolio
 
-A dark, space-themed personal portfolio for **Suman Mahata**, Full Stack Developer — built as a small multi-language project rather than one giant file.
+A dark, space-themed personal portfolio for **Suman Mahata**, Full Stack Developer.
 
 **Live:** https://suman876-ops.github.io/suman-portfolio/
 
----
+## Overview
 
-## What's inside
+A static front end with a Three.js 3D background, built as a small multi-language project so each concern lives in its own file rather than one oversized page.
 
-The site itself is a static front end, but the repository deliberately spreads across several languages so each concern lives in its own file:
+## Structure
 
-| Language | Files | What it does |
-|---|---|---|
-| **HTML** | `index.html` | Page structure and markup |
-| **CSS** | `css/style.css` | The whole design system — layout, theme variables, animation |
-| **JavaScript** | `js/data.js` | All site content (one plain object) |
-| | `js/main.js` | UI logic — navigation, reveals, tilt, modal, command palette, cursor |
-| | `js/scene.js` | The Three.js 3D background |
-| | `js/brands.js` | Official technology marks used by the Skills cards |
-| **Assets** | `favicon.svg` | Site icon — a neon `S` monogram on a dark disc, drawn as a single vector stroke |
-| | `favicon-32.png`, `apple-touch-icon.png` | Raster icon fallbacks for older browsers and iOS |
-| | `images/profile-cutout.webp` | Hero portrait with the studio background removed |
-| **Node.js** | `server/server.js` | Zero-dependency local dev server |
-| **Python** | `server/app.py` | The same dev server, in the standard library |
-| **Bash** | `deploy.sh` | One-command commit + push |
-| **JSON** | `package.json` | Project metadata and run scripts |
+| Path | Purpose |
+|---|---|
+| `index.html` | Page structure and markup |
+| `css/style.css` | Design system — layout, theme tokens, animation |
+| `js/data.js` | All site content as a single object |
+| `js/main.js` | UI logic — navigation, reveals, tilt, modal, command palette |
+| `js/scene.js` | Three.js background scene |
+| `js/brands.js` | Technology marks used by the skill cards |
+| `server/server.js` | Zero-dependency Node dev server |
+| `server/app.py` | The same dev server, Python standard library |
+| `deploy.sh` | One-command commit and push |
 
 ## Features
 
-- **3D background** with Three.js — a drifting starfield, a wireframe planet with orbiting rings, floating geometry and glow sprites, with mouse and scroll parallax.
-- **Modern UI** — animated preloader, custom cursor, scroll-progress bar, 3D tilt cards, magnetic buttons, animated counters, an education timeline whose connector line draws itself as you scroll, a marquee strip, a skill-card grid with official brand marks and category-tinted segmented proficiency bars, and a project detail modal.
-- **Glass-pill navigation** with a frosted brand pill and an active-section highlight.
-- **One consistent icon set** — a single 24×24 stroke-icon system (mail, location, clock,
-  bolt, spark, arrows, external-link, code, eye, search, refresh, hash) drawn in
-  `currentColor`, so nothing relies on emoji or stray text glyphs.
-- **Binary rain** — falling `0`/`1` columns animate behind the hero portrait, which is a
-  cut-out (`images/profile-cutout.webp`) so the code shows through around the subject.
-- **Command palette** — press `Ctrl`/`Cmd` + `K` to navigate, copy the email or cycle themes.
-- **Four accent themes** — Cyan/Violet, Violet/Pink, Emerald/Sky, Amber/Coral (the dots in the footer).
-- **Graceful fallback** — if Three.js can't load, the page drops back to a 2D canvas starfield.
+- Three.js starfield, wireframe planet and floating geometry with mouse and scroll parallax
+- Command palette (`Ctrl`/`Cmd` + `K`) for navigation, email copy and theme switching
+- Four accent themes, custom cursor, scroll progress and reveal animations
+- Graceful fallback to a 2D canvas starfield if Three.js fails to load
 
-## Project showcase
-
-All eight projects appear in the Projects section, and every card carries three actions:
-
-- **Live Demo** — opens the real deployment. Where no verified deployment exists, the card shows *Live Demo Coming Soon* instead of a link.
-- **Source Code** — opens the public repository. Where none is published, it shows *Source Code Not Publicly Available*.
-- **View Details** — opens a modal with the full description and the same links.
-
-Every project is shown as a card with Live Demo, Source Code and View Details actions.
-
-## Design
-
-- **Glassmorphism** — the navigation, cards, contact tiles, modal and command
-  palette are frosted panels (`backdrop-filter: blur()` over a translucent
-  gradient), with a soft inner highlight and a deep shadow so they read as
-  glass on the dark background.
-- **Glass-pill navigation** — the brand sits in its own rounded glass pill with a
-  glowing dot, and the links sit in a second pill where the active section is
-  highlighted with an inner pill.
-- **Contact tiles** — email (with a copy button), location, timezone, response
-  time and status are presented as a grid of glass cards with icon badges,
-  followed by the social links as glass pills.
-- **Palette** — a deep navy-black base with cyan, violet and pink accents, four
-  switchable themes, and higher-contrast text.
-
-## Honesty notes
-
-Every link in `js/data.js` was added only after being checked:
-
-- **Live demos verified reachable:** SMX, Smart Bhumi, Apna Mess, and this portfolio.
-- **Public source available:** `suman-portfolio` only.
-- Projects with no verified deployment or repository show the informational labels
-  above rather than a guessed URL.
-- `techVerified: false` marks a stack that has not been confirmed against the real
-  build; those chips render as unconfirmed.
-
-## Running it locally
-
-The site uses ES modules, so it must be served over HTTP (opening `index.html` directly from the filesystem won't work).
-
-**Node.js**
-```bash
-npm start            # or: node server/server.js
-```
-
-**Python 3** (no Node required)
-```bash
-python3 server/app.py
-```
-
-Then open http://localhost:3000
-
-## Editing the content
-
-Everything you see on the page comes from `js/data.js` — name, tagline, about text, stats, education timeline, skills, projects and contact links. Change a value there and the site updates; no build step.
-
-## Deploying
+## Run locally
 
 ```bash
-./deploy.sh "your commit message"
+node server/server.js        # or: python3 server/app.py
 ```
 
-This stages, commits and pushes to `main`. GitHub Pages rebuilds automatically.
+Then open http://localhost:3000. No dependencies, no build step.
 
-## Notes
+## Author
 
-- Three.js and the Google Fonts are loaded from CDNs, so the 3D scene needs an internet connection (the 2D fallback does not).
-- The profile photo lives at `images/profile.jpg`.
+Suman Mahata — [portfolio](https://suman876-ops.github.io/suman-portfolio/) · [GitHub](https://github.com/suman876-ops)
 
 ## License
 
-[MIT](LICENSE) © 2026 Suman Mahata
+MIT
