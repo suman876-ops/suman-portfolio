@@ -88,19 +88,13 @@ export const DATA = {
       tags: ["Office Automation", "Publishing", "Grade A+"]
     },
     {
-      year: "", tag: "certification",
-      role: "Fundamentals of Digital Marketing", org: "Google",
-      desc: "Google's certification covering the fundamentals of digital marketing — search, social, analytics and online advertising.",
-      tags: ["Digital Marketing", "SEO", "Analytics"]
-    },
-    {
-      year: "", tag: "certification",
+      year: "2025 – 2026", tag: "certification",
       role: "Programming in Java", org: "SWAYAM",
       desc: "Programming in Java — an online course on SWAYAM, the Government of India's MOOC platform.",
       tags: ["Java", "Programming"]
     },
     {
-      year: "", tag: "experience",
+      year: "2025", tag: "experience",
       role: "Motion Graphics Designer", org: "",
       desc: "",
       tags: ["Motion Graphics", "Design"]
