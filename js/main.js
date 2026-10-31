@@ -163,10 +163,10 @@ function renderBindings() {
   $("#timeline").innerHTML = '<span class="tl-line" aria-hidden="true"><i></i></span>' +
     (DATA.timeline || []).map((it) => `
     <div class="item reveal">
-      <div class="top"><span class="yr">${esc(it.year)}</span><span class="tag">${esc(it.tag)}</span></div>
+      <div class="top">${it.year ? `<span class="yr">${esc(it.year)}</span>` : ""}<span class="tag">${esc(it.tag)}</span></div>
       <h3>${esc(it.role)}</h3>
-      <div class="org">// ${esc(it.org)}</div>
-      <p>${esc(it.desc)}</p>
+      ${it.org ? `<div class="org">// ${esc(it.org)}</div>` : ""}
+      ${it.desc ? `<p>${esc(it.desc)}</p>` : ""}
       <div class="chips">${(it.tags || []).map((t) => `<span class="chip"><span class="ico">${ICONS.hash}</span>${esc(t)}</span>`).join("")}</div>
     </div>`).join("");
 
