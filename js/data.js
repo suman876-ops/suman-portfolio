@@ -62,42 +62,42 @@ export const DATA = {
   ],
 
   timeline: [
-    {
+{
       year: "2026 – Present", tag: "education",
       role: "BCA — Computer Application", org: "Midnapore City College",
       desc: "Currently pursuing a Bachelor of Computer Applications, focusing on programming, web development, and software engineering.",
       tags: ["Programming", "Web Development", "Software Engineering"]
     },
-    {
+{
       year: "2026", tag: "education",
       role: "Higher Secondary", org: "WBCHSE — West Bengal Council of Higher Secondary Education",
       desc: "Completed Higher Secondary education with Computer Application as a subject.",
       tags: ["Computer Application"]
     },
-    {
-      year: "2024", tag: "education",
-      role: "Secondary", org: "WBBSE — West Bengal Board of Secondary Education",
-      desc: "Completed secondary education, building a foundation for further academic learning.",
-      tags: ["Foundation"]
+{
+      year: "2025 – 2026", tag: "certification",
+      role: "Programming in Java", org: "SWAYAM",
+      desc: "Programming in Java — an online course on SWAYAM, the Government of India's MOOC platform.",
+      tags: ["Java", "Programming"]
     },
-    {
+{
+      year: "2025", tag: "experience",
+      role: "Motion Graphics Designer", org: "",
+      desc: "",
+      tags: ["Motion Graphics", "Design"]
+    },
+{
       year: "2024 – 2025", tag: "certification",
       role: "Diploma in Office Automation and Publishing (DOAP)",
       org: "Rajeev Gandhi Computer Saksharta Mission (RGCSM)",
       desc: "Professional training in office automation and publishing tools. Grade: A+",
       tags: ["Office Automation", "Publishing", "Grade A+"]
     },
-    {
-      year: "2025 – 2026", tag: "certification",
-      role: "Programming in Java", org: "SWAYAM",
-      desc: "Programming in Java — an online course on SWAYAM, the Government of India's MOOC platform.",
-      tags: ["Java", "Programming"]
-    },
-    {
-      year: "2025", tag: "experience",
-      role: "Motion Graphics Designer", org: "",
-      desc: "",
-      tags: ["Motion Graphics", "Design"]
+{
+      year: "2024", tag: "education",
+      role: "Secondary", org: "WBBSE — West Bengal Board of Secondary Education",
+      desc: "Completed secondary education, building a foundation for further academic learning.",
+      tags: ["Foundation"]
     }
   ],
 
