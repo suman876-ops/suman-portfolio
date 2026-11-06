@@ -26,7 +26,7 @@ export const DATA = {
   status: "AVAILABLE FOR FREELANCE",
   statusShort: "Available",
   focus: "Full Stack Development",
-  accent: "cyan",
+  accent: "crimson",
 
   aboutText:
     "I'm a Full Stack Developer who enjoys turning ideas into clean, fast and reliable web products. I like working across the whole stack — from designing a friendly interface to structuring the data and APIs that power it.\n" +
@@ -228,6 +228,7 @@ export const DATA = {
 
 /* Accent colour themes — each one drives both the CSS variables and the 3D scene. */
 export const THEMES = {
+  crimson: { cyan: "#f64555", mag: "#c91f32", pink: "#ff8a94", lime: "#efe6e0", hex: 0xf64555, hex2: 0xc91f32 },
   cyan:    { cyan: "#3fe0ff", mag: "#9d7bff", pink: "#ff5c9e", lime: "#7dffc0", hex: 0x3fe0ff, hex2: 0x9d7bff },
   violet:  { cyan: "#b18cff", mag: "#7c5cff", pink: "#ff6bd6", lime: "#a6ffd4", hex: 0xb18cff, hex2: 0x7c5cff },
   emerald: { cyan: "#46f2b4", mag: "#38d0ff", pink: "#9bff62", lime: "#c8ffe0", hex: 0x46f2b4, hex2: 0x38d0ff },
