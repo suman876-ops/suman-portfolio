@@ -35,7 +35,6 @@ img{max-width:100%;display:block}
 
 .wrap{max-width:var(--maxw);margin:0 auto;padding:0 26px}
 .mono{font-family:var(--mono)}
-.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--cyan)}
 .sec-num{font-family:var(--mono);color:var(--muted2);font-size:13px;letter-spacing:.2em}
 h1,h2,h3{font-family:var(--disp);font-weight:800;letter-spacing:.01em;line-height:1.02;margin:0}
 .hl{color:var(--cyan)}
@@ -180,8 +179,6 @@ section.blk{padding:110px 0;position:relative;border-top:1px solid var(--line)}
 .skill .nm{font-family:var(--mono);font-size:13.5px;letter-spacing:.06em}
 .skill .nm i{color:var(--muted2);font-style:normal;font-size:11px;margin-right:10px}
 .skill .pc{font-family:var(--mono);font-size:12.5px;color:var(--cyan)}
-.pbar{height:6px;border-radius:999px;background:rgba(120,160,220,.12);overflow:hidden;position:relative}
-.pbar span{display:block;height:100%;width:0;border-radius:999px;background:linear-gradient(90deg,var(--cyan),var(--mag));box-shadow:0 0 14px color-mix(in srgb,var(--cyan) 50%,transparent);transition:width 1.2s cubic-bezier(.2,.8,.2,1)}
 .scan-btn{margin-top:40px}
 
 /* projects */
@@ -199,16 +196,11 @@ section.blk{padding:110px 0;position:relative;border-top:1px solid var(--line)}
 .proj .tags{display:flex;flex-wrap:wrap;gap:8px}
 .proj .tags span{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;color:var(--cyan);border:1px solid var(--line2);border-radius:6px;padding:5px 10px;background:color-mix(in srgb,var(--cyan) 6%,transparent)}
 .proj .idx{position:absolute;right:20px;bottom:8px;font-family:var(--disp);font-weight:900;font-size:64px;color:rgba(120,160,220,.07);pointer-events:none}
-.proj .more{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--cyan);margin-top:16px;display:inline-flex;gap:8px;align-items:center}
 
 /* contact */
 .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
 .contact .big{font-size:clamp(30px,4.6vw,52px);margin-bottom:14px}
 .contact p.sub{color:var(--muted);margin:0 0 26px}
-.info-row{display:flex;align-items:center;gap:16px;padding:16px 0;border-bottom:1px solid var(--line);flex-wrap:wrap}
-.info-row small{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted2);min-width:130px}
-.info-row span{font-family:var(--mono);font-size:14px}
-.info-row a:hover{color:var(--cyan)}
 .copy{cursor:pointer;color:var(--cyan);border:1px solid var(--line2);border-radius:6px;padding:4px 9px;font-size:10.5px;background:color-mix(in srgb,var(--cyan) 6%,transparent);font-family:var(--mono)}
 .form{border:1px solid var(--line);border-radius:16px;padding:28px;background:var(--panel)}
 .form label{display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted2);margin:0 0 8px}
@@ -335,10 +327,8 @@ header.nav .bar{display:flex;align-items:center;justify-content:space-between;ga
 .status-pill{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:10.5px;letter-spacing:.13em;color:var(--lime);padding:9px 15px;border-radius:999px;text-transform:uppercase}
 .status-pill .dot{width:7px;height:7px;border-radius:50%;background:var(--lime);box-shadow:0 0 10px var(--lime);animation:pulse 1.8s infinite}
 header.nav.scrolled{background:linear-gradient(180deg,rgba(5,7,13,.72),rgba(5,7,13,0));backdrop-filter:blur(6px);border-bottom:0}
-header.nav.scrolled .brand,header.nav.scrolled .nav-links{background:linear-gradient(180deg,rgba(255,255,255,.085),rgba(255,255,255,.03))}
-
-/* ---------- frosted surfaces ---------- */
-.proj,.stat,.op,.form,.filters,.ccard,.modal .box,.cmd .pal{
+header.nav.scrolled .brand,header.nav.scrolled .nav-links{background:linear-gradient(180deg,rgba(255,255,255,.085),rgba(255,255,255,.03))}/* ---------- frosted surfaces ---------- */
+.proj, .stat, .op, .form, .ccard, .modal .box, .cmd .pal{
   background:var(--glass-bg);
   border:1px solid var(--glass-line);
   -webkit-backdrop-filter:blur(20px) saturate(150%);
@@ -361,20 +351,6 @@ header.nav.scrolled .brand,header.nav.scrolled .nav-links{background:linear-grad
 .form .send{background:linear-gradient(100deg,var(--cyan),var(--mag));color:#06101c;border:0;font-weight:600;box-shadow:0 10px 30px color-mix(in srgb,var(--mag) 35%,transparent)}
 .form .send:hover{filter:brightness(1.08);box-shadow:0 12px 38px color-mix(in srgb,var(--cyan) 45%,transparent)}
 .form input,.form textarea{background:rgba(4,6,14,.45);border:1px solid var(--glass-line)}
-.filters input[type=search],.filters select{background:rgba(4,6,14,.45);border:1px solid var(--glass-line)}
-
-/* ---------- project filters ---------- */
-.filters{border-radius:18px;padding:20px 22px;margin-bottom:26px;display:grid;gap:14px}
-.frow{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
-.flabel{font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted2);min-width:92px}
-.fchips{display:flex;gap:8px;flex-wrap:wrap}
-.fchip{font-family:var(--mono);font-size:11px;letter-spacing:.05em;color:var(--muted);border:1px solid var(--glass-line);background:rgba(255,255,255,.03);border-radius:999px;padding:8px 14px;cursor:pointer;transition:.22s}
-.fchip:hover{color:var(--txt);border-color:var(--line2)}
-.fchip.on{color:#06101c;background:linear-gradient(100deg,var(--cyan),var(--mag));border-color:transparent;font-weight:600;box-shadow:0 8px 24px color-mix(in srgb,var(--cyan) 30%,transparent)}
-.filters select{border-radius:10px;padding:10px 13px;color:var(--txt);font-family:var(--mono);font-size:12.5px;outline:none;cursor:pointer}
-.filters input[type=search]{width:100%;border-radius:11px;padding:13px 15px;color:var(--txt);font-family:var(--mono);font-size:13.5px;outline:none;transition:.25s}
-.filters input[type=search]:focus,.filters select:focus{border-color:var(--cyan);box-shadow:0 0 0 3px color-mix(in srgb,var(--cyan) 13%,transparent)}
-.fcount{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted2)}
 .no-results{grid-column:1/-1;border:1px dashed var(--line2);border-radius:16px;padding:44px;text-align:center;color:var(--muted);font-family:var(--mono);font-size:13px}
 
 /* ---------- project action buttons ---------- */
@@ -403,15 +379,12 @@ a.pact.src:hover{background:var(--mag);color:#0b0416;box-shadow:0 0 24px color-m
 .cbody b{font-family:var(--mono);font-size:13px;font-weight:500;color:var(--txt);overflow-wrap:anywhere}
 .cbody b a:hover{color:var(--cyan)}
 .ccopy{margin-left:auto;flex:0 0 auto;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--cyan);background:color-mix(in srgb,var(--cyan) 10%,transparent);border:1px solid var(--line2);border-radius:10px;padding:9px 14px;cursor:pointer;transition:.22s}
-.ccopy:hover{background:var(--cyan);color:#02121a;box-shadow:0 0 22px color-mix(in srgb,var(--cyan) 35%,transparent)}
-
-@media(max-width:900px){
+.ccopy:hover{background:var(--cyan);color:#02121a;box-shadow:0 0 22px color-mix(in srgb,var(--cyan) 35%,transparent)}@media(max-width:900px){
   .nav-links{position:fixed;top:72px;right:14px;left:14px;flex-direction:column;align-items:stretch;gap:6px;padding:14px;display:none;border-radius:20px;background:rgba(8,11,20,.92)}
   .nav-links.open{display:flex}
   .nav-links a{padding:13px 16px}
   .ccards{grid-template-columns:1fr}
   .ccard.wide{grid-column:auto}
-  .flabel{min-width:100%}
   .pact{font-size:10px;padding:9px 11px}
 }
 
@@ -439,10 +412,6 @@ a.pact.src:hover{background:var(--mag);color:#0b0416;box-shadow:0 0 24px color-m
 .chip{display:inline-flex;align-items:center;gap:7px}
 .chip .ico{width:10px;height:10px;opacity:.5;transition:opacity .25s}
 .chip:hover .ico{opacity:.95}
-.searchwrap{position:relative}
-.searchwrap .ico{position:absolute;left:15px;top:50%;transform:translateY(-50%);width:16px;height:16px;color:var(--muted2);pointer-events:none}
-.filters .searchwrap input[type=search]{padding-left:44px}
-
 
 /* ============================================================================
    SKILLS CARDS — icon, name and a segmented proficiency bar (v3.6)
@@ -492,7 +461,6 @@ a.pact.src:hover{background:var(--mag);color:#0b0416;box-shadow:0 0 24px color-m
   .skcard{padding:18px 18px 20px}
   .skname{font-size:17px}
 }
-
 
 /* ============================================================================
    PROJECT PREVIEW IMAGES (v3.6.4)
