@@ -86,7 +86,7 @@
     <div class="nav-right">
       <span class="status-pill glass"><span class="dot"></span><span data-bind="statusShort">Available</span></span>
       <span class="kbd" id="cmdBtn" title="Command palette (Ctrl+K)">⌘K</span>
-      <button class="menu-btn" id="menuBtn">MENU</button>
+      <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="navlinks">MENU</button>
     </div>
   </div>
 </header>
@@ -202,7 +202,7 @@
         <div class="ccards">
           <div class="ccard glass wide">
             <span class="cico" data-icon="mail"></span>
-            <span class="cbody"><small>Email</small><b><a data-bind="email" data-href="mailto" href="#">email</a></b></span>
+            <span class="cbody"><small>Email</small><b><a data-bind="email" data-href="mailto" href="mailto:sumanmahata711@gmail.com">sumanmahata711@gmail.com</a></b></span>
             <button class="ccopy" id="copyEmail" type="button" aria-label="Copy email address">Copy</button>
           </div>
           <div class="ccard glass">
@@ -242,14 +242,14 @@
       <div class="brand" data-bind="brand">SUMAN<b>.dev</b></div>
       <div class="meta" style="text-align:left;margin-top:8px">Designed &amp; Deployed by <span data-bind="name">Suman Mahata</span></div>
     </div>
-    <div class="meta">© <span id="yr2">2026</span> Edition • V3.8.0<br>HTML / CSS / JS / Three.js</div>
+    <div class="meta">© <span id="yr2">2026</span> Edition • V3.8.1<br>HTML / CSS / JS / Three.js</div>
   </div>
 </footer>
 
 <button class="to-top" id="toTop" title="Back to top"><span class="ico" data-icon="arrow-up"></span></button>
 
 <!-- PROJECT MODAL -->
-<div class="modal" id="modal">
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="mTitle">
   <div class="bg" data-close></div>
   <div class="box">
     <button class="x" data-close>Close</button>
@@ -268,7 +268,7 @@
 </div>
 
 <!-- COMMAND PALETTE -->
-<div class="cmd" id="cmd">
+<div class="cmd" id="cmd" role="dialog" aria-modal="true" aria-label="Command palette">
   <div class="bg" data-cmdclose></div>
   <div class="pal">
     <input id="cmdInput" placeholder="Type a command…  (navigate, theme, copy email)">

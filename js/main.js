@@ -252,6 +252,14 @@ function renderProjects() {
  * MODAL
  * ==========================================================================*/
 const modal = $("#modal");
+let lastFocused = null;   // so focus returns to the card that opened the dialog
+
+function closeModal() {
+  if (!modal.classList.contains("on")) return;
+  modal.classList.remove("on");
+  if (lastFocused && typeof lastFocused.focus === "function") lastFocused.focus();
+  lastFocused = null;
+}
 
 function openProject(i) {
   const p = (DATA.projects || [])[i];
@@ -283,11 +291,14 @@ function openProject(i) {
   if (p.github) { src.style.display = "inline-flex"; src.href = p.github; } else src.style.display = "none";
   if (!p.live) $("#mNoLive").style.display = "block"; else $("#mNoLive").style.display = "none";
 
+  lastFocused = document.activeElement;
   modal.classList.add("on");
+  const closeBtn = modal.querySelector(".x");
+  if (closeBtn) setTimeout(() => closeBtn.focus(), 30);
 }
 
 document.addEventListener("click", (e) => {
-  if (e.target.closest("[data-close]")) { modal.classList.remove("on"); return; }
+  if (e.target.closest("[data-close]")) { closeModal(); return; }
   const detail = e.target.closest("[data-detail]");
   if (detail) { openProject(+detail.getAttribute("data-detail")); return; }
   // clicking the card body (but not a link/button) also opens details
@@ -430,7 +441,10 @@ function onScroll() {
 }
 window.addEventListener("scroll", onScroll, { passive: true });
 $("#toTop").addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
-$("#menuBtn").addEventListener("click", () => $("#navlinks").classList.toggle("open"));
+$("#menuBtn").addEventListener("click", () => {
+  const open = $("#navlinks").classList.toggle("open");
+  $("#menuBtn").setAttribute("aria-expanded", String(open));
+});
 $$(".nav-links a").forEach((a) => a.addEventListener("click", () => $("#navlinks").classList.remove("open")));
 
 /* ---------- copy email ---------- */
@@ -499,7 +513,7 @@ window.addEventListener("keydown", (e) => {
     e.preventDefault();
     cmd.classList.contains("on") ? cmd.classList.remove("on") : openCmd();
   }
-  if (e.key === "Escape") { cmd.classList.remove("on"); modal.classList.remove("on"); }
+  if (e.key === "Escape") { cmd.classList.remove("on"); closeModal(); }
 });
 cmdInput.addEventListener("input", () => { cmdSel = 0; renderCmd(); });
 cmdInput.addEventListener("keydown", (e) => {
